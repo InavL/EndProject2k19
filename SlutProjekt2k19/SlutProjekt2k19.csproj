@@ -181,8 +181,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Contactlist.cs" />
+    <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Posts.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Models\DbContext.cs" />
