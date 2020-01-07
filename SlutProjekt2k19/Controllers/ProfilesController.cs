@@ -61,12 +61,12 @@ namespace SlutProjekt2k19.Controllers
         {
             var userId = User.Identity.GetUserId();
             var currentProfile = db.Profiles.FirstOrDefault(p => p.Id == userId);
-
+            
             if (currentProfile == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var profile = db.Profiles.Find(currentProfile);
+            Profile profile = db.Profiles.Find(currentProfile);
             if (profile == null)
             {
                 return HttpNotFound();
