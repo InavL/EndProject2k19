@@ -5,11 +5,20 @@
 }
 
 .navpadd {
-    margin-inline: 0.5rem;
+    margin: 0;
+}
+
+@media (min-width: 990px) {
+    .navpadd {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
 }
 
 .fns {
     max-width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 
 .textcolor {

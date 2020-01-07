@@ -2,117 +2,201 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="container" style="margin-top:30px">
-    <div class="row">
-        <div class="col-sm-6">
-            <hr/>
-            <div class="jumbotron">
-                <img class="fns" alt="logo" src="../../Images/FnSBlack.png"/>
-                <p class="lead">We'll help you start a fire.</p>
-            </div>
-            <form class="needs-validation" novalidate>
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="validationTooltip01">First name</label>
-                        <input type="text" class="form-control" id="validationTooltip01" placeholder="First name" required>
-                        <div class="valid-tooltip">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="validationTooltip02">Last name</label>
-                        <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" required>
-                        <div class="valid-tooltip">
-                            Looks good!
-                        </div>
-                    </div>
-
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <div class="container" style="margin-top: 30px">
+        <hr/>
+        <div class="jumbotron">
+            <img class="fns" alt="logo" src="../../Images/FnSBlack.png"/>
+            <p class="lead">We'll help you start a fire.</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container" style="margin-top: 30px">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="jumbotron">
+                    <img class="fns" alt="logo" src="../../Images/FnSBlack.png"/>
+                    <p class="lead">We'll help you start a fire.</p>
                 </div>
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="validationTooltipUsername">Username</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" aria-describedby="validationTooltipUsernamePrepend" required>
-                            <div class="invalid-tooltip">
-                                Please choose a unique and valid username.
+
+
+                @model SlutProjekt2k19.Models.RegisterViewModel
+
+
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new
+                {
+                    role = "form"
+                }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Create an account:</h4>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name, new
+                            {
+                                @class = "col-md-2 control-label"
+                            })
+                            <div class="col-md-12 col-sm-12">
+                                @Html.TextBoxFor(m => m.Name, new
+                                {
+                                    @class = "form-control"
+                                })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Age, new
+                            {
+                                @class = "col-md-2 control-label"
+                            })
+                            <div class="col-md-12 col-sm-12">
+                                @Html.TextBoxFor(m => m.Age, new
+                                {
+                                    @class = "form-control"
+                                })
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="validationTooltip03">City</label>
-                        <input type="text" class="form-control" id="validationTooltip03" placeholder="City" required>
-                        <div class="invalid-tooltip">
-                            Please provide a valid city.
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Gender, new
+                            {
+                                @class = "col-md-2 control-label"
+                            })
+                            <div class="col-md-12 col-sm-12">
+                                @Html.TextBoxFor(m => m.Gender, new
+                                {
+                                    @class = "form-control"
+                                })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new
+                            {
+                                @class = "col-md-2 control-label"
+                            })
+                            <div class="col-md-12 col-sm-12">
+                                @Html.TextBoxFor(m => m.Email, new
+                                {
+                                    @class = "form-control"
+                                })
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="validationTooltip04">State</label>
-                        <input type="text" class="form-control" id="validationTooltip04" placeholder="State" required>
-                        <div class="invalid-tooltip">
-                            Please provide a valid state.
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new
+                            {
+                                @class = "col-md-2 control-label"
+                            })
+                            <div class="col-md-12 col-sm-12">
+                                @Html.PasswordFor(m => m.Password, new
+                                {
+                                    @class = "form-control"
+                                })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new
+                            {
+                                @class = "col-md-12 control-label"
+                            })
+                            <div class="col-md-12 col-sm-12">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new
+                                {
+                                    @class = "form-control"
+                                })
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="validationTooltip05">Zip</label>
-                        <input type="text" class="form-control" id="validationTooltip05" placeholder="Zip" required>
-                        <div class="invalid-tooltip">
-                            Please provide a valid zip.
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Bio, new
+                        {
+                            @class = "col-md-12 control-label"
+                        })
+                        <div class="col-md-auto col-sm-auto col-xl-auto">
+                            @Html.TextAreaFor(m => m.Bio, new
+                            {
+                                @class = "form-control"
+                            })
                         </div>
                     </div>
-                </div>
-                <button class="btn btn-primary" type="submit">Submit form</button>
-            </form>
-            <hr class="d-sm-none">
-        </div>
-        
-        <div class="col-sm-6">
 
-            <div class="container">
-                <h2>People you can meet on F&S:</h2>
-                <div class="row">
-                    <div class="col-md-6 col-sm-12 col-xs-24">
-                        <a href="LinkT">
-                            <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
-                        </a>
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12">
+                            <input type="submit" class="btn btn-primary" value="Register"/>
+                        </div>
                     </div>
 
-                    <div class="col-md-6 col-sm-12 col-xs-24">
-                        <a href="LinkToImage">
-                            <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
-                        </a>
-                    </div>
-                </div>
-                <hr />
-                <div class="row">
-                    <div class="col-md-6 col-sm-12 col-xs-24">
-                        <a href="LinkT">
-                            <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
-                        </a>
-                    </div>
+                    @Html.ValidationSummary("", new
+                    {
+                        @class = "text-danger"
+                    })
+                }
 
-                    <div class="col-md-6 col-sm-12 col-xs-24">
-                        <a href="LinkToImage">
-                            <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
-                        </a>
-                    </div>
-                </div>
-                <hr />
-                <div class="row">
-                    <div class="col-md-6 col-sm-12 col-xs-24">
-                        <a href="LinkT">
-                            <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
-                        </a>
-                    </div>
+                @section Scripts {
+                    @Scripts.Render("~/bundles/jqueryval")
+                }
 
-                    <div class="col-md-6 col-sm-12 col-xs-24">
-                        <a href="LinkToImage">
-                            <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
-                        </a>
+
+            </div>
+
+
+            <div class="col-sm-6">
+
+                <div class="container">
+                    <h2>People you can meet on F&S:</h2>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <a href="LinkT">
+                                <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
+                            </a>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <a href="LinkToImage">
+                                <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <a href="LinkT">
+                                <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
+                            </a>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <a href="LinkToImage">
+                                <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <a href="LinkT">
+                                <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
+                            </a>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <a href="LinkToImage">
+                                <img alt="AltText" src="https://placehold.it/300" class="img-fluid">
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
