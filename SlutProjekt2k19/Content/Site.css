@@ -4,8 +4,17 @@
     background-color: #003B46;
 }
 
+.navpadd {
+    margin-inline: 0.5rem;
+}
+
 .fns {
     max-width: 100%;
+}
+
+.textcolor {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
 }
 
 .nav-main {
