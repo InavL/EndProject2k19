@@ -104,6 +104,8 @@ namespace SlutProjekt2k19.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
+
+
         //
         // POST: /Account/VerifyCode
         [HttpPost]

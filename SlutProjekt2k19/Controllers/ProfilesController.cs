@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -27,7 +28,7 @@ namespace SlutProjekt2k19.Controllers
         }
 
         public ActionResult GetProfiles(string search)
-        { 
+        {
             var list = db.Profiles;
             var profiles = from x in list select x;
             if (!string.IsNullOrEmpty(search))
@@ -36,7 +37,15 @@ namespace SlutProjekt2k19.Controllers
             }
             return View(profiles.ToList());
         }
+        public ActionResult SetProfileModel()
+        {
+            var model = new SlutProjekt2k19.Models.Profile();
 
+            var profiles = db.Profiles;
+
+            
+                return View(model);
+        }
 
         // GET: Profiles
         public ActionResult Index()
@@ -48,14 +57,16 @@ namespace SlutProjekt2k19.Controllers
         }
 
         // GET: Profiles/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details()
         {
-           
-            if (id == null)
+            var userId = User.Identity.GetUserId();
+            var currentProfile = db.Profiles.FirstOrDefault(p => p.Id == userId);
+
+            if (currentProfile == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = db.Profiles.Find(id);
+            var profile = db.Profiles.Find(currentProfile);
             if (profile == null)
             {
                 return HttpNotFound();
@@ -81,14 +92,14 @@ namespace SlutProjekt2k19.Controllers
                 var userID = User.Identity.GetUserId();
                 var id = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 profile.Id = userID.ToString();
-                 
+
                 db.Profiles.Add(profile);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(profile);
         }
-    
+
 
         // GET: Profiles/Edit/5
         public ActionResult Edit(string id)
