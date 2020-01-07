@@ -6,10 +6,7 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<table class="table textcolor">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -27,7 +24,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr class="textcolor">
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
