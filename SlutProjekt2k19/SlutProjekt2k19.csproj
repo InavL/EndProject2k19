@@ -176,6 +176,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\UserCredentialsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -188,8 +190,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Posts.cs" />
     <Compile Include="Models\Profile.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
-    <Compile Include="Models\DbContext.cs" />
+    <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Models\UserCredentialsContext.cs" />
     <Compile Include="Models\UserCredentialsIndexViewModel.cs" />
@@ -359,8 +360,17 @@
     <Content Include="Views\UserCredentials\AddUsersForm.cshtml">
       <BrowseToURL>~/Views/AddUsersForm.cshtml</BrowseToURL>
     </Content>
-    <Content Include="Views\Profile\ProfileIndex.cshtml" />
-    <Content Include="Views\Profile\AddProfileForm.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Delete.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Profiles\Create.cshtml" />
+    <Content Include="Views\Profiles\Delete.cshtml" />
+    <Content Include="Views\Profiles\Details.cshtml" />
+    <Content Include="Views\Profiles\Edit.cshtml" />
+    <Content Include="Views\Profiles\Index.cshtml" />
+    <Content Include="Views\Profiles\Feed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

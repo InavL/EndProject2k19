@@ -9,6 +9,6 @@ namespace SlutProjekt2k19.Models
     public class UserCredentialsContext : System.Data.Entity.DbContext
     {
         public DbSet<UserCredentials> userLogins { get; set; }
-        public UserCredentialsContext() : base("UserCredentialsDb") { }
+        public UserCredentialsContext() : base("DbContext") { }
     }
 }

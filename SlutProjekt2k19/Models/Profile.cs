@@ -10,7 +10,7 @@ namespace SlutProjekt2k19.Models
     public class Profile
     {
         [Key]
-        public int ID { get; set;}
+        public string ID { get; set;}
         public string Name { get; set; }
         public string Image { get; set; }
         public string Bio { get; set; }
