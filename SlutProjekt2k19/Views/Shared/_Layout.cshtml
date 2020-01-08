@@ -28,11 +28,10 @@
                     @if (Request.IsAuthenticated)
                     {
                     <li class="nav-item">
-                       
-               
-                            @Html.ActionLink("Profile", "Details","Profiles")
-               
 
+                        @foreach (var item in Model) {
+                            @Html.ActionLink("Profile", "Details", new { id = item.Id })
+                        }
                         @*<a class="nav-link" href="../Profiles/Index">Profile</a>*@
                     </li>
                     }
