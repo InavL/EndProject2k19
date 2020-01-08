@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/SlutProjekt2k19/Content
+/SlutProjekt2k19/Scripts

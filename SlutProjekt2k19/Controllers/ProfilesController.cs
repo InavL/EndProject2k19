@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -15,58 +15,61 @@ namespace SlutProjekt2k19.Controllers
 {
     public class ProfilesController : Controller
     {
-        private DataDbContext db = new DataDbContext();
+        private DBContext db = new DBContext();
 
         protected ApplicationDbContext ApplicationDbContext { get; set; }
+
+        /// <summary>
+        /// User manager - attached to application DB context
+        /// </summary>
         protected UserManager<ApplicationUser> UserManager { get; set; }
 
-
-        public ProfilesController()
+        public ProfilesController() 
         {
             this.ApplicationDbContext = new ApplicationDbContext();
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
 
-        public ActionResult GetProfiles(string search)
-        {
-            var list = db.Profiles;
-            var profiles = from x in list select x;
-            if (!string.IsNullOrEmpty(search))
-            {
-                profiles = list.Where(x => x.Name.Contains(search));
-            }
-            return View(profiles.ToList());
-        }
-        public ActionResult SetProfileModel()
-        {
-            var model = new SlutProjekt2k19.Models.Profile();
-
-            var profiles = db.Profiles;
-
-            
-                return View(model);
-        }
-
         // GET: Profiles
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId();
-            var currentProfile = db.Profiles.FirstOrDefault(p => p.Id == userId);
+            try {
 
-            return View(db.Profiles.ToList());
-        }
+                var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var userId = claim.Value;
 
-        // GET: Profiles/Details/5
-        public ActionResult Details()
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                var list = db.profiles.ToList();
+                var list2 = new List<Profile>();
+                String userString = userId.ToString();
+                foreach (Profile item in list)
+                {
+                    if (userString == item.ID)
+                    {
+                        list2.Add(item);
+                    }
+                }
+
+
+                return View(list2);
+            }
+            catch {return HttpNotFound(); }
+           }
+        public ActionResult Feed() 
         {
-            var userId = User.Identity.GetUserId();
-            var currentProfile = db.Profiles.FirstOrDefault(p => p.Id == userId);
-            
-            if (currentProfile == null)
+            var List = db.profiles.ToList();
+
+            return View(List);
+        }
+        // GET: Profiles/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = db.Profiles.Find(currentProfile);
+            Profile profile = db.profiles.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
@@ -85,30 +88,32 @@ namespace SlutProjekt2k19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async System.Threading.Tasks.Task<ActionResult> CreateAsync([Bind(Include = "Name,Age,Gender,Bio")] Profile profile)
+        public ActionResult Create([Bind(Include = "ID,Name,Image,Bio,Gender,SearchingFor,Age,UserCredentials")] Profile profile)
         {
             if (ModelState.IsValid)
             {
-                var userID = User.Identity.GetUserId();
-                var id = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                profile.Id = userID.ToString();
+                var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var userId = claim.Value;
 
-                db.Profiles.Add(profile);
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                profile.ID = userId.ToString();
+                db.profiles.Add(profile);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(profile);
         }
 
-
         // GET: Profiles/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = db.Profiles.Find(id);
+            Profile profile = db.profiles.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
@@ -121,9 +126,8 @@ namespace SlutProjekt2k19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Age,Gender,Bio")] Profile profile)
+        public ActionResult Edit([Bind(Include = "ID,Name,Image,Bio,Gender,SearchingFor,Age,UserCredentials")] Profile profile)
         {
-
             if (ModelState.IsValid)
             {
                 db.Entry(profile).State = EntityState.Modified;
@@ -134,13 +138,13 @@ namespace SlutProjekt2k19.Controllers
         }
 
         // GET: Profiles/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = db.Profiles.Find(id);
+            Profile profile = db.profiles.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
@@ -151,10 +155,10 @@ namespace SlutProjekt2k19.Controllers
         // POST: Profiles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Profile profile = db.Profiles.Find(id);
-            db.Profiles.Remove(profile);
+            Profile profile = db.profiles.Find(id);
+            db.profiles.Remove(profile);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
