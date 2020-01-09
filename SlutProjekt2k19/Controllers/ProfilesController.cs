@@ -45,7 +45,7 @@ namespace SlutProjekt2k19.Controllers
                 String userString = userId.ToString();
                 foreach (Profile item in list)
                 {
-                    if (userString == item.ID)
+                    if (userString == item.Id)
                     {
                         list2.Add(item);
                     }
@@ -97,7 +97,7 @@ namespace SlutProjekt2k19.Controllers
                 var userId = claim.Value;
 
                 var user = UserManager.FindById(User.Identity.GetUserId());
-                profile.ID = userId.ToString();
+                profile.Id = userId.ToString();
                 db.profiles.Add(profile);
                 db.SaveChanges();
                 return RedirectToAction("Index");
