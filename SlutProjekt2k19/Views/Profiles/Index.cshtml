@@ -23,26 +23,39 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr class="textcolor">
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Age)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bio)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr class="textcolor">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+            <td>
+                if (img.Image != null)
+                {
+                <img src="img.Image" style="height:200px;width:200px; border-radius: 50%;" alt="Profile_Image">
+                }
+                else
+                {
+                <img src="~/Images/ImageUndefined.png" style="height:200px;width:200px; border-radius: 50%;" alt="Profile_Image">
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
+                @Html.ActionLink("Add/ Change profile picture", "AddImageView", "Images")
+            </td>
+
+        </tr>
+    }
 
 </table>

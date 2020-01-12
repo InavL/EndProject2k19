@@ -25,15 +25,11 @@
 
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-link">@Html.ActionLink("About", "About", "Home")</li>
+                    <li class="nav-link">@Html.ActionLink("Contact", "Contact", "Home")</li>
                     @if (Request.IsAuthenticated)
                     {
-                    <li class="nav-item">
-
-                        @foreach (var item in Model) {
-                            @Html.ActionLink("Profile", "Details", new { id = item.Id })
-                        }
-                        @*<a class="nav-link" href="../Profiles/Index">Profile</a>*@
-                    </li>
+                        <li class="nav-link">@Html.ActionLink("Profile", "Index", "Profiles")</li>
                     }
                 </ul>
                 <form class="form-inline">

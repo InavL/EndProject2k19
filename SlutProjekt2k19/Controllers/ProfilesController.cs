@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
@@ -24,7 +25,7 @@ namespace SlutProjekt2k19.Controllers
         /// </summary>
         protected UserManager<ApplicationUser> UserManager { get; set; }
 
-        public ProfilesController() 
+        public ProfilesController()
         {
             this.ApplicationDbContext = new ApplicationDbContext();
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
@@ -33,7 +34,8 @@ namespace SlutProjekt2k19.Controllers
         // GET: Profiles
         public ActionResult Index()
         {
-            try {
+            try
+            {
 
                 var claimsIdentity = (ClaimsIdentity)this.User.Identity;
                 var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
@@ -45,7 +47,7 @@ namespace SlutProjekt2k19.Controllers
                 String userString = userId.ToString();
                 foreach (Profile item in list)
                 {
-                    if (userString == item.ID)
+                    if (userString == item.Id)
                     {
                         list2.Add(item);
                     }
@@ -54,16 +56,16 @@ namespace SlutProjekt2k19.Controllers
 
                 return View(list2);
             }
-            catch {return HttpNotFound(); }
-           }
-        public ActionResult Feed() 
+            catch { return HttpNotFound(); }
+        }
+        public ActionResult Feed()
         {
             var List = db.profiles.ToList();
 
             return View(List);
         }
         // GET: Profiles/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -88,7 +90,7 @@ namespace SlutProjekt2k19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Image,Bio,Gender,SearchingFor,Age,UserCredentials")] Profile profile)
+        public ActionResult Create([Bind(Include = "Id,Name,Bio,Gender,SearchingFor,Age")] Profile profile)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +99,7 @@ namespace SlutProjekt2k19.Controllers
                 var userId = claim.Value;
 
                 var user = UserManager.FindById(User.Identity.GetUserId());
-                profile.ID = userId.ToString();
+                profile.Id = userId.ToString();
                 db.profiles.Add(profile);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -107,7 +109,7 @@ namespace SlutProjekt2k19.Controllers
         }
 
         // GET: Profiles/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -126,7 +128,7 @@ namespace SlutProjekt2k19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Image,Bio,Gender,SearchingFor,Age,UserCredentials")] Profile profile)
+        public ActionResult Edit([Bind(Include = "ID,Name,Image,Bio,Gender,SearchingFor,Age")] Profile profile)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +140,7 @@ namespace SlutProjekt2k19.Controllers
         }
 
         // GET: Profiles/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -155,7 +157,7 @@ namespace SlutProjekt2k19.Controllers
         // POST: Profiles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             Profile profile = db.profiles.Find(id);
             db.profiles.Remove(profile);
@@ -171,5 +173,9 @@ namespace SlutProjekt2k19.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
+
 }
+

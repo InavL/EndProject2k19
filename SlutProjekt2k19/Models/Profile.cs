@@ -15,5 +15,6 @@ namespace SlutProjekt2k19.Models
         public int Age { get; set; }
         public string Gender { get; set; }
         public string Bio { get; set; }
+        public string Image { get; set; }
     }
 }
