@@ -27,7 +27,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>3.6</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -184,13 +184,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ControllProfileController.cs" />
+    <Compile Include="Controllers\ApiMessageController.cs" />
+    <Compile Include="Controllers\ContactlistsController.cs" />
+    <Compile Include="Controllers\FriendRequestsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PostApiController.cs" />
-    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
+    <Compile Include="Controllers\UserCredentialsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,8 +200,12 @@
     <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PostMessage.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\DBContext.cs" />
+    <Compile Include="Models\UserCredentials.cs" />
+    <Compile Include="Models\UserCredentialsContext.cs" />
+    <Compile Include="Models\UserCredentialsIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -215,9 +219,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\FnSBlack.png" />
-    <Content Include="Images\FnSWhite.png" />
-    <Content Include="Images\temp.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -251,6 +252,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\message-list.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -367,16 +369,37 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\UserCredentials\Index.cshtml" />
+    <Content Include="Views\UserCredentials\AddUsersForm.cshtml">
+      <BrowseToURL>~/Views/AddUsersForm.cshtml</BrowseToURL>
+    </Content>
+    <Content Include="Views\PostMessage\Create.cshtml" />
+    <Content Include="Views\PostMessage\Delete.cshtml" />
+    <Content Include="Views\PostMessage\Details.cshtml" />
+    <Content Include="Views\PostMessage\Edit.cshtml" />
+    <Content Include="Views\Profiles\ViewMessages.cshtml" />
     <Content Include="Views\Profiles\Create.cshtml" />
     <Content Include="Views\Profiles\Delete.cshtml" />
     <Content Include="Views\Profiles\Details.cshtml" />
     <Content Include="Views\Profiles\Edit.cshtml" />
     <Content Include="Views\Profiles\Index.cshtml" />
     <Content Include="Views\Profiles\Feed.cshtml" />
-    <Content Include="Views\Images\AddImages.cshtml" />
+    <Content Include="Views\FriendRequests\Create.cshtml" />
+    <Content Include="Views\FriendRequests\Delete.cshtml" />
+    <Content Include="Views\FriendRequests\Details.cshtml" />
+    <Content Include="Views\FriendRequests\Edit.cshtml" />
+    <Content Include="Views\FriendRequests\Index.cshtml" />
+    <Content Include="Views\FriendRequests\SendFriendRequest.cshtml" />
+    <Content Include="Views\FriendRequests\PendingRequests.cshtml" />
+    <Content Include="Views\Contactlists\Create.cshtml" />
+    <Content Include="Views\Contactlists\Delete.cshtml" />
+    <Content Include="Views\Contactlists\Details.cshtml" />
+    <Content Include="Views\Contactlists\Edit.cshtml" />
+    <Content Include="Views\Contactlists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\NewProfile\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
