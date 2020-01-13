@@ -4,34 +4,30 @@
     ViewBag.Title = "Feed";
 }
 
+@Html.ActionLink("Match", "Index", "FriendRequests") |
 
-<table class="table">
+<table class="table textcolor">
+
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Image)
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Bio)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Gender)
+            @Html.DisplayNameFor(model => model.Image)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.SearchingFor)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Age)
-        </th>
-        <th>
-            @Html.ActionLink("Match", "Index", "FriendRequests");
-        </th>
+        <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
+    @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -46,17 +42,17 @@
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.SearchingFor)
-            </td>*@
+                    @Html.DisplayFor(modelItem => item.SearchingFor)
+                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.UserCredentials)
-            </td>*@
-            <td>
-                @Html.ActionLink("View messages", "ViewMessages", "Profiles");
-            </td>
+                    @Html.DisplayFor(modelItem => item.UserCredentials)
+                </td>*@
+            @*<td>
+                    @Html.ActionLink("View messages", "ViewMessages", "Profiles");
+                </td>*@
         </tr>
     }
 

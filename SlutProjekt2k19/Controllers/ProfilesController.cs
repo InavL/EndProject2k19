@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -13,20 +14,6 @@ namespace SlutProjekt2k19.Controllers
     public class ProfilesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-        protected ApplicationDbContext ApplicationDbContext { get; set; }
-
-        /// <summary>
-        /// User manager - attached to application DB context
-        /// </summary>
-        protected UserManager<ApplicationUser> UserManager { get; set; }
-
-        public ProfilesController()
-        {
-            this.ApplicationDbContext = new ApplicationDbContext();
-            this.UserManager =
-                new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
-        }
 
         public ActionResult ViewMessage()
         {
@@ -51,6 +38,7 @@ namespace SlutProjekt2k19.Controllers
                         list2 = item;
                     }
                 }
+
                 return View(list2);
             }
             catch
@@ -61,9 +49,10 @@ namespace SlutProjekt2k19.Controllers
 
         public ActionResult Feed()
         {
-            var List = db.Profiles.ToList();
+            var usrList = db.Profiles.ToList();
 
-            return View(List);
+
+            return View(usrList);
         }
 
         // GET: Profiles/Details/5
@@ -100,10 +89,9 @@ namespace SlutProjekt2k19.Controllers
             if (ModelState.IsValid)
             {
                 var claimsIdentity = (ClaimsIdentity) this.User.Identity;
-                var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
-                var user = UserManager.FindById(User.Identity.GetUserId());
                 profile.Id = userId.ToString();
                 db.Profiles.Add(profile);
                 db.SaveChanges();

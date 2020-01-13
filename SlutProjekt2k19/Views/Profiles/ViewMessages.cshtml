@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Home Page";
     var isLoggedIn = Request.IsAuthenticated;
-    var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+    var claimsIdentity = (ClaimsIdentity) this.User.Identity;
     var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
     var userId = isLoggedIn ? claim.Value : null;
 }
@@ -14,7 +14,7 @@
 @if (true)
 {
     <form class="message-form">
-        <input type="hidden" id="user-id" value="@userId" />
+        <input type="hidden" id="user-id" value="@userId"/>
         <textarea id="new-message"></textarea>
         <button type="button" id="send-button" onclick="updateMessageList()">Skicka meddelande</button>
     </form>
@@ -68,13 +68,14 @@
         }
     }
 
-    window.addEventListener('load', () => {
-        updateMessageList();
+    window.addEventListener('load',
+        () => {
+            updateMessageList();
 
-        if ($('#user-id').length > 0) {
-            $('#send-button').click(sendMessage);
-        }
-    });
+            if ($('#user-id').length > 0) {
+                $('#send-button').click(sendMessage);
+            }
+        });
 </script>
 <style>
     .message-list, .message-form {
@@ -89,23 +90,21 @@
         overflow-y: auto;
     }
 
-        .message-list .message {
-            align-self: flex-start;
-            width: 70%;
-            padding: 1em 1em 1.5em;
-            margin-bottom: 1px;
-            background-color: #ECEFF1;
-        }
+    .message-list .message {
+        align-self: flex-start;
+        width: 70%;
+        padding: 1em 1em 1.5em;
+        margin-bottom: 1px;
+        background-color: #ECEFF1;
+    }
 
-            .message-list .message.own-message {
-                align-self: flex-end;
-                background-color: #90A4AE;
-            }
+    .message-list .message.own-message {
+        align-self: flex-end;
+        background-color: #90A4AE;
+    }
 
     .own-message + .other-message,
-    .other-message + .own-message {
-        margin-top: 1.5em;
-    }
+    .other-message + .own-message { margin-top: 1.5em; }
 
     .message-list .message header {
         display: flex;
@@ -115,24 +114,18 @@
         margin-bottom: .5em;
     }
 
-        .message-list .message header time,
-        .message-list .message header h2 {
-            margin: 0;
-            font-size: 16px;
-            line-height: 1;
-        }
-
-        .message-list .message header h2 {
-            flex-grow: 1;
-        }
-
-        .message-list .message header time {
-            text-transform: uppercase;
-        }
-
-    .message-list .message main {
-        font-size: 20px;
+    .message-list .message header time,
+    .message-list .message header h2 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1;
     }
+
+    .message-list .message header h2 { flex-grow: 1; }
+
+    .message-list .message header time { text-transform: uppercase; }
+
+    .message-list .message main { font-size: 20px; }
 
     .message-form {
         display: flex;
@@ -142,29 +135,25 @@
         border-top: 1px solid #fff;
     }
 
-        .message-form button,
-        .message-form textarea {
-            width: 50%;
-            max-width: none;
-            border: none;
-            padding: 1em;
-        }
+    .message-form button,
+    .message-form textarea {
+        width: 50%;
+        max-width: none;
+        border: none;
+        padding: 1em;
+    }
 
-        .message-form textarea {
-            background-color: #ECEFF1;
-        }
+    .message-form textarea { background-color: #ECEFF1; }
 
-            .message-form textarea:focus {
-                background-color: #fff;
-                box-shadow: 0 0 0.75rem rgba(0, 131, 143, 0.4);
-                outline: none;
-            }
+    .message-form textarea:focus {
+        background-color: #fff;
+        box-shadow: 0 0 0.75rem rgba(0, 131, 143, 0.4);
+        outline: none;
+    }
 
-        .message-form button {
-            margin-top: 1em;
-            background-color: #00838F;
-            color: #fff;
-        }
+    .message-form button {
+        margin-top: 1em;
+        background-color: #00838F;
+        color: #fff;
+    }
 </style>
-
-

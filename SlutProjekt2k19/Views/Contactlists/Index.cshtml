@@ -21,9 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Gender)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.SearchingFor)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Age)
         </th>
@@ -48,9 +48,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.SearchingFor)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
@@ -58,8 +58,8 @@
                 @Html.DisplayFor(modelItem => item.UserCredentials)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
