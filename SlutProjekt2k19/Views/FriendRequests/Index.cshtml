@@ -1,0 +1,74 @@
+﻿
+@model IEnumerable<SlutProjekt2k19.Models.Profile>
+
+@{
+    ViewBag.Title = "Friend Requests";
+}
+
+<h2>Search for a Match by Name</h2>
+
+@using (Html.BeginForm("Index", "FriendRequests", FormMethod.Get))
+{
+    <p>
+        Name  : @Html.TextBox("name")<br />
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SearchingFor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserCredentials)
+        </th>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SearchingFor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserCredentials)
+            </td>
+            <th>
+
+            </th>
+        </tr>
+
+        @Html.Partial("SendFriendRequest")
+        @Html.ActionLink("FrindInvites", "PendingRequests", "FriendRequests")
+
+    }
+
+    </table>

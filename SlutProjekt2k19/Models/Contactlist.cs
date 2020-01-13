@@ -14,9 +14,8 @@ namespace SlutProjekt2k19.Models
     {   
         [Key]
         public int ID { set; get; }
-        public int Friend1 { set; get; }
-        public int Friend2 { set; get; }
-        public string FriendCategory1 { set; get; }
+        public string Friend1 { set; get; }
+        public string Friend2 { set; get; }
         public string FriendCategory2 { set; get; }
     }
 }

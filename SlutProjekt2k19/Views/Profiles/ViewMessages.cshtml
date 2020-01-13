@@ -1,0 +1,170 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@using System.Web.Optimization
+@{
+    ViewBag.Title = "Home Page";
+    var isLoggedIn = Request.IsAuthenticated;
+    var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+    var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+    var userId = isLoggedIn ? claim.Value : null;
+}
+@* Meddelande listas här: *@
+<div class="message-list" id="messagelist"></div>
+
+@if (true)
+{
+    <form class="message-form">
+        <input type="hidden" id="user-id" value="@userId" />
+        <textarea id="new-message"></textarea>
+        <button type="button" id="send-button" onclick="updateMessageList()">Skicka meddelande</button>
+    </form>
+}
+
+<script>
+    function updateMessageList() {
+        // Hämta användarid från den dolda input-taggen:
+        const userId = $('#user-id').val();
+
+        $.get('/api/apimessage/list')
+            .then((resp) => {
+                if (resp && Array.isArray(resp)) {
+                    $('#message-list').html('');
+                    resp.forEach((mess) => {
+                        const isMine = mess.UserId === userId;
+                        $('#messagelist')
+                            .append(
+                                `<article class="message ${(isMine ? 'own-message' : 'other-message')}">
+                                    <header class="header">
+                                        <time class="date">${mess.Timestamp}</time>
+                                        <h2>${mess.UserName}</h2>
+                                    </header>
+                                    <main class="body">${mess.Message}</main>
+                                </article>`
+                            );
+                    });
+                }
+            });
+    }
+
+    function sendMessage() {
+        const newMessage = $('#new-message').val();
+        const timestamp = new Date().toISOString();
+        const userId = $('#user-id').val();
+        if (newMessage) {
+            const messageObj = {
+                Message: newMessage,
+                Timestamp: timestamp,
+                UserId: userId
+            };
+            $.post('/api/apimessage/send', messageObj)
+                .then((resp) => {
+                    if (resp === "Ok") {
+                        $('#new-message').val('');
+                        updateMessageList();
+                    } else {
+                        alert('Något gick fel!');
+                    }
+                });
+        }
+    }
+
+    window.addEventListener('load', () => {
+        updateMessageList();
+
+        if ($('#user-id').length > 0) {
+            $('#send-button').click(sendMessage);
+        }
+    });
+</script>
+<style>
+    .message-list, .message-form {
+        background-color: #CFD8DC;
+        padding: 2em;
+    }
+
+    .message-list {
+        display: flex;
+        flex-direction: column;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+        .message-list .message {
+            align-self: flex-start;
+            width: 70%;
+            padding: 1em 1em 1.5em;
+            margin-bottom: 1px;
+            background-color: #ECEFF1;
+        }
+
+            .message-list .message.own-message {
+                align-self: flex-end;
+                background-color: #90A4AE;
+            }
+
+    .own-message + .other-message,
+    .other-message + .own-message {
+        margin-top: 1.5em;
+    }
+
+    .message-list .message header {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        padding-bottom: .5em;
+        margin-bottom: .5em;
+    }
+
+        .message-list .message header time,
+        .message-list .message header h2 {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .message-list .message header h2 {
+            flex-grow: 1;
+        }
+
+        .message-list .message header time {
+            text-transform: uppercase;
+        }
+
+    .message-list .message main {
+        font-size: 20px;
+    }
+
+    .message-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid #fff;
+    }
+
+        .message-form button,
+        .message-form textarea {
+            width: 50%;
+            max-width: none;
+            border: none;
+            padding: 1em;
+        }
+
+        .message-form textarea {
+            background-color: #ECEFF1;
+        }
+
+            .message-form textarea:focus {
+                background-color: #fff;
+                box-shadow: 0 0 0.75rem rgba(0, 131, 143, 0.4);
+                outline: none;
+            }
+
+        .message-form button {
+            margin-top: 1em;
+            background-color: #00838F;
+            color: #fff;
+        }
+</style>
+
+
