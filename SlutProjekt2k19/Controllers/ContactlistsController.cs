@@ -13,7 +13,7 @@ namespace SlutProjekt2k19.Controllers
 {
     public class ContactlistsController : Controller
     {
-        private DBContext db = new DBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Contactlists
         public ActionResult Index()

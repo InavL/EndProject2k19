@@ -15,9 +15,9 @@ namespace SlutProjekt2k19.Controllers
 {
     public class FriendRequestsController : Controller
     {
-        private DBContext db = new DBContext();
-        
-        
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+
         //GET: FriendRequests
         [HttpGet]
         public ActionResult Index(string name)

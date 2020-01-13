@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -23,6 +23,15 @@ namespace SlutProjekt2k19.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+        public DbSet<Profile> Profiles { get; set; }
+
+        public DbSet<PostMessage> Posts { get; set; }
+        
+        public DbSet<FriendRequest> FriendRequests { get; set; }
+
+        public DbSet<Contactlist> Contactlists { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

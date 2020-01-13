@@ -14,10 +14,10 @@ namespace SlutProjekt2k19.Controllers
     //[RoutePrefix("api/apimessage")]
     public class ApiMessageController : ApiController
     {
-        private DBContext db;
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ApiMessageController() 
         {
-            db = new DBContext();
+            var context = new ApplicationDbContext();
         }
 
         //[Route("list")]

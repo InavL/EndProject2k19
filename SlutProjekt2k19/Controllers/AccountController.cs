@@ -139,14 +139,12 @@ namespace SlutProjekt2k19.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            DBContext context = new DBContext();
-
+            var context = new ApplicationDbContext();
 
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
-
 
                 if (result.Succeeded)
                 {
@@ -158,10 +156,6 @@ namespace SlutProjekt2k19.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-
-
-                    int maxInt = context.Profiles.Max(p => p.UserCredentials);
-
                     context.Profiles.Add(new Profile
                     {
                         Id = user.Id,
@@ -170,7 +164,7 @@ namespace SlutProjekt2k19.Controllers
                         Gender = model.Gender,
                         Bio = model.Bio,
                         Image = model.Image,
-                        UserCredentials = model.UserCredentials,
+                        UserCredentials = model.UserCredentials
                     });
                     context.SaveChanges();
 

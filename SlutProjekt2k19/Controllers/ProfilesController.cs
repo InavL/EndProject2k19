@@ -12,7 +12,7 @@ namespace SlutProjekt2k19.Controllers
 {
     public class ProfilesController : Controller
     {
-        private DBContext db = new DBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         protected ApplicationDbContext ApplicationDbContext { get; set; }
 
@@ -39,7 +39,7 @@ namespace SlutProjekt2k19.Controllers
             try
             {
                 var claimsIdentity = (ClaimsIdentity) this.User.Identity;
-                var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
                 var list = db.Profiles.ToList();

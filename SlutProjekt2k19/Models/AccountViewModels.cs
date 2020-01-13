@@ -62,9 +62,9 @@ namespace SlutProjekt2k19.Models
 
         public RegisterViewModel()
         {
-            DBContext db = new DBContext();
-            
-            if(!DBNull.Value.Equals(UserCredentials))
+            var db = new ApplicationDbContext();
+
+            if (!DBNull.Value.Equals(UserCredentials))
             {
                 maxInt = 1;
             }
