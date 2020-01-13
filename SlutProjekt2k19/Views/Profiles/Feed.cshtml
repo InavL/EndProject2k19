@@ -19,16 +19,13 @@
         <th>
             @Html.DisplayNameFor(model => model.Gender)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.SearchingFor)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Age)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserCredentials)
-        </th>
-        <th></th>
+
     </tr>
 
     @foreach (var item in Model)
@@ -46,15 +43,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.SearchingFor)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.UserCredentials)
-            </td>
+            </td>*@
             
         </tr>
     }

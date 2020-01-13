@@ -1,8 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace SlutProjekt2k19.Models
 {
+    public enum genderTypes
+    {
+        Man,
+        Kvinna
+    }
+  
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -76,8 +84,7 @@ namespace SlutProjekt2k19.Models
         public int Age { get; set; }
 
         [Required]
-        [DataType(DataType.Text)]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
+        [DataType(DataType.Text)]       
         [Display(Name = "Gender")]
         public string Gender { get; set; }
 
@@ -100,7 +107,7 @@ namespace SlutProjekt2k19.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
     }
@@ -120,7 +127,7 @@ namespace SlutProjekt2k19.Models
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }

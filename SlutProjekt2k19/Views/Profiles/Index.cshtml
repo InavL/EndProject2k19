@@ -1,7 +1,12 @@
-﻿@model IEnumerable<SlutProjekt2k19.Models.Profile>
+﻿@model SlutProjekt2k19.Models.Profile
 
 @{
     ViewBag.Title = "Index";
+     var profile ="";
+    if (@Model.Id != null)
+    {
+        profile = @Model.Id;
+    }
 }
 
 <h2>Index</h2>
@@ -20,42 +25,48 @@
         <th>
             @Html.DisplayNameFor(model => model.Bio)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr class="textcolor">
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bio)
-            </td>
-            <td>
-                if (img.Image != null)
-                {
-                <img src="img.Image" style="height:200px;width:200px; border-radius: 50%;" alt="Profile_Image">
-                }
-                else
-                {
-                <img src="~/Images/ImageUndefined.png" style="height:200px;width:200px; border-radius: 50%;" alt="Profile_Image">
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
-                @Html.ActionLink("Add/ Change profile picture", "AddImageView", "Images")
-            </td>
 
-        </tr>
-    }
+
+    <tr class="textcolor">
+        <td>
+            @Html.DisplayFor(model => model.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Age)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Bio)
+        </td>
+
+        @if (Model.Image != null)
+        {
+            <img src="@Url.Content(@Model.Image)" style="height:200px;width:200px; border-radius: 50%;" alt="Profile_Image">
+        }
+        else
+        {
+            <img src="~/Images/Test.jpg" style="height:200px;width:200px; border-radius: 50%;" alt="Profile_Image">
+        }
+
+        </td>
+        @if (@Model.Id != null){
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = profile }) |
+            @Html.ActionLink("Details", "Details", new { id = profile }) |
+            @Html.ActionLink("Delete", "Delete", new { id = profile })|
+            @Html.ActionLink("Add/ Change profile picture", "AddImageView", "Images")
+        </td>
+        }
+
+    </tr>
+
 
 </table>

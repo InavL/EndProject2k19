@@ -43,13 +43,13 @@ namespace SlutProjekt2k19.Controllers
 
                 var user = UserManager.FindById(User.Identity.GetUserId());
                 var list = db.profiles.ToList();
-                var list2 = new List<Profile>();
+                Profile list2 = null;
                 String userString = userId.ToString();
                 foreach (Profile item in list)
                 {
                     if (userString == item.Id)
                     {
-                        list2.Add(item);
+                        list2 = item;
                     }
                 }
 
