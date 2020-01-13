@@ -83,7 +83,7 @@ namespace SlutProjekt2k19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Bio,Gender,SearchingFor,Age")]
+        public ActionResult Create([Bind(Include = "Id,Name,Bio,Gender,Age")]
             Profile profile)
         {
             if (ModelState.IsValid)

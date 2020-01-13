@@ -25,13 +25,7 @@
             @Html.DisplayNameFor(model => model.Gender)
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.SearchingFor)*@
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Age)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserCredentials)
         </th>
         <th></th>
     </tr>
@@ -52,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => item.SearchingFor)*@
+                @Html.DisplayFor(modelItem => item.SearchingFor)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
@@ -61,8 +55,8 @@
                 @Html.DisplayFor(modelItem => item.UserCredentials)
             </td>
             <td>
-                @Html.ActionLink("Add", "Add", new { id = item.Id })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Add", "Add", new { id = item.ID })
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>
     }

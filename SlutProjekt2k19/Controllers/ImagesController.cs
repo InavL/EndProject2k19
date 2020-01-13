@@ -13,7 +13,7 @@ namespace SlutProjekt2k19.Controllers
     public class ImagesController : Controller
     {
         // GET: Images
-        private DBContext db = new DBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ActionResult AddImageView()
         {

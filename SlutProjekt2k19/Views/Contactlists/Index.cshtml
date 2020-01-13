@@ -21,14 +21,8 @@
         <th>
             @Html.DisplayNameFor(model => model.Gender)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.SearchingFor)
-        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Age)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserCredentials)
         </th>
         <th></th>
     </tr>
@@ -48,14 +42,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.SearchingFor)
-            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserCredentials)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
