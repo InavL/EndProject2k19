@@ -27,30 +27,38 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.UserCredentials)
-                </td>*@
-            @*<td>
-                    @Html.ActionLink("View messages", "ViewMessages", "Profiles");
-                </td>*@
-        </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Age)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Gender)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Bio)
+    </td>
+    <td>
+        @if (item.Image != null)
+        {
+            <img src="@Url.Content(item.Image)" style="height:50px; width:50px;" alt="Profile_Image">
+        }
+        else
+        {
+            <img src="~/Images/Test.jpg" style="height:50px; width:50px;" alt="Profile_Image">
+        }
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.UserCredentials)
+        </td>*@
+    @*<td>
+            @Html.ActionLink("View messages", "ViewMessages", "Profiles");
+        </td>*@
+</tr>
     }
 
 </table>
