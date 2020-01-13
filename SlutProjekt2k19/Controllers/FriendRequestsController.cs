@@ -24,24 +24,21 @@ namespace SlutProjekt2k19.Controllers
         {
             try
             {
-
-                var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                var claimsIdentity = (ClaimsIdentity) this.User.Identity;
                 var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
-                
+
                 Console.WriteLine(name);
                 var list = db.FriendRequests.ToList();
                 var profilelist = db.Profiles.ToList();
                 var list2 = new List<Profile>();
                 String userString = userId.ToString();
-                
+
                 foreach (Profile item in profilelist)
                 {
                     string Name = item.Name;
-                   if(Name == name)
+                    if (Name == name)
                     {
-
-                      
                         list2.Add(item);
                     }
                 }
@@ -49,7 +46,10 @@ namespace SlutProjekt2k19.Controllers
 
                 return View(list2);
             }
-            catch { return HttpNotFound(); }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
         //public ActionResult Index2(string name, string message)
         //{
@@ -87,9 +87,9 @@ namespace SlutProjekt2k19.Controllers
 
         // GET: FriendRequests/Details/5
 
-        public ActionResult SendFriendRequest (string id)
+        public ActionResult SendFriendRequest(string id)
         {
-            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claimsIdentity = (ClaimsIdentity) this.User.Identity;
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
@@ -103,7 +103,6 @@ namespace SlutProjekt2k19.Controllers
             {
                 if (Convert.ToString(item.UserCredentials) == id)
                 {
-
                     FriendRequest friendrequests = new FriendRequest();
                     friendrequests.From = userString;
                     friendrequests.To = Convert.ToString(item.UserCredentials);
@@ -121,8 +120,7 @@ namespace SlutProjekt2k19.Controllers
         {
             try
             {
-
-                var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                var claimsIdentity = (ClaimsIdentity) this.User.Identity;
                 var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
@@ -137,7 +135,7 @@ namespace SlutProjekt2k19.Controllers
 
                 foreach (Profile item in profilelist)
                 {
-                    if(userString == item.Id)
+                    if (userString == item.Id)
                     {
                         cred = item.UserCredentials;
                     }
@@ -146,11 +144,8 @@ namespace SlutProjekt2k19.Controllers
 
                 foreach (FriendRequest item in friendlist)
                 {
-
                     if (cred.ToString() == item.To)
                     {
-
-
                         pendingFriends.Add(item.From);
                     }
                 }
@@ -169,19 +164,25 @@ namespace SlutProjekt2k19.Controllers
 
                 return View(friendProfiles);
             }
-            catch { return HttpNotFound(); }
+            catch
+            {
+                return HttpNotFound();
+            }
         }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             FriendRequest friendRequest = db.FriendRequests.Find(id);
             if (friendRequest == null)
             {
                 return HttpNotFound();
             }
+
             return View(friendRequest);
         }
 
@@ -215,6 +216,7 @@ namespace SlutProjekt2k19.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var friendRequest = new List<FriendRequest>();
             friendRequest = db.FriendRequests.ToList();
 
@@ -222,6 +224,7 @@ namespace SlutProjekt2k19.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(friendRequest);
         }
 
@@ -238,30 +241,31 @@ namespace SlutProjekt2k19.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(friendRequest);
         }
 
         // GET: FriendRequests/Delete/5
         public ActionResult Delete(string id)
         {
-            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claimsIdentity = (ClaimsIdentity) this.User.Identity;
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
             var profilelist = db.Profiles.ToList();
-                var list2 = new List<Profile>();
-                String userString = userId.ToString();
-                var pendingFriends = new List<String>();
-                int to = 0;
-                var friendProfiles = new List<Profile>();
+            var list2 = new List<Profile>();
+            String userString = userId.ToString();
+            var pendingFriends = new List<String>();
+            int to = 0;
+            var friendProfiles = new List<Profile>();
 
-                foreach (Profile item in profilelist)
+            foreach (Profile item in profilelist)
+            {
+                if (userString == item.Id)
                 {
-                    if(userString == item.Id)
-                    {
-                        to = item.UserCredentials;
-                    }
+                    to = item.UserCredentials;
                 }
+            }
 
 
             if (id == null)
@@ -274,20 +278,20 @@ namespace SlutProjekt2k19.Controllers
 
             foreach (FriendRequest item in friendlist)
             {
-                if(item.To == to.ToString() && item.From == id.ToString())
+                if (item.To == to.ToString() && item.From == id.ToString())
                 {
                     db.FriendRequests.Remove(item);
                     db.SaveChanges();
                 }
             }
 
-            
+
             return RedirectToAction("PendingRequests");
         }
 
-public ActionResult Add(string id)
+        public ActionResult Add(string id)
         {
-            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claimsIdentity = (ClaimsIdentity) this.User.Identity;
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
@@ -298,8 +302,7 @@ public ActionResult Add(string id)
             int to = 0;
             var friendProfiles = new List<Profile>();
 
-            
-           
+
             var friendlist = db.FriendRequests.ToList();
 
             foreach (Profile itemP in profilelist)
@@ -311,12 +314,11 @@ public ActionResult Add(string id)
                     {
                         if (itemF.To == to.ToString() && itemF.From == id.ToString())
                         {
-                            
                             var contact = new Contactlist();
                             contact.Friend1 = userString;
                             contact.Friend2 = id;
                             //db.FriendRequests.Remove(itemF);
-                            
+
                             db.Contactlists.Add(contact);
                             db.SaveChanges();
                             foreach (Profile friend in profilelist)
@@ -326,13 +328,11 @@ public ActionResult Add(string id)
                                     friendProfiles.Add(friend);
                                 }
                             }
-
-
                         }
-
                     }
                 }
             }
+
             return View("../Contactlists/Index", friendProfiles);
         }
 
@@ -342,6 +342,7 @@ public ActionResult Add(string id)
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
