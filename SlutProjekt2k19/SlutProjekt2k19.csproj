@@ -188,6 +188,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PostApiController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -385,6 +386,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Image\" />
     <Folder Include="Views\NewProfile\" />
+    <Folder Include="Views\PostApi\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
