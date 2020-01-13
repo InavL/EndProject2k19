@@ -16,19 +16,16 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bio)
+            @Html.DisplayNameFor(model => model.Age)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Gender)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Age)
+            @Html.DisplayNameFor(model => model.Bio)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserCredentials)
+            @Html.DisplayNameFor(model => model.Image)
         </th>
         <th></th>
     </tr>
@@ -40,23 +37,27 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bio)
+                @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Age)
+                @Html.DisplayFor(modelItem => item.Bio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserCredentials)
+                @if (item.Image != null)
+                {
+                    <img src="@Url.Content(item.Image)" style="height:50px; width:50px;" alt="Profile_Image">
+                }
+                else
+                {
+                    <img src="~/Images/Test.jpg" style="height:50px; width:50px;" alt="Profile_Image">
+                }
             </td>
             <td>
-                @Html.ActionLink("Add", "Add", new { id = item.Id })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Add", "Add", new { id = item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
