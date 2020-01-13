@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -9,12 +10,16 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SlutProjekt2k19.Models;
+using static SlutProjekt2k19.Models.RegisterViewModel;
 
 namespace SlutProjekt2k19.Controllers
 {
+  
     [Authorize]
     public class AccountController : Controller
     {
+
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -51,6 +56,8 @@ namespace SlutProjekt2k19.Controllers
                 _userManager = value;
             }
         }
+
+       
 
         //
         // GET: /Account/Login
@@ -152,6 +159,7 @@ namespace SlutProjekt2k19.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             DBContext context = new DBContext();
+
 
             if (ModelState.IsValid)
             {
