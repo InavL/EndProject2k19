@@ -205,7 +205,6 @@
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostApiController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,7 +220,6 @@
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Views\Shared\BootstrapHtml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\SlutProjekt2k19.dll" />
@@ -426,13 +424,11 @@
     <Content Include="Views\Contactlists\Edit.cshtml" />
     <Content Include="Views\Contactlists\Index.cshtml" />
     <Content Include="Views\Images\AddImages.cshtml" />
-    <Content Include="Views\Manage\ChangeProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\" />
-    <Folder Include="Views\BootstrapHtml\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

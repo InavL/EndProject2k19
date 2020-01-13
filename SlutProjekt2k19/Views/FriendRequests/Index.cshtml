@@ -9,10 +9,10 @@
 
 @using (Html.BeginForm("Index", "FriendRequests", FormMethod.Get))
 {
-    <p>
-        Name  : @Html.TextBox("name")<br />
-        <input type="submit" value="Search" />
-    </p>
+<p>
+    Name  : @Html.TextBox("name")<br />
+    <input type="submit" class="btn btn-primary" value="Search" />
+</p>
 }
 <table class="table">
     <tr>
@@ -55,7 +55,7 @@
         </tr>
 
         @Html.Partial("SendFriendRequest")
-        @Html.ActionLink("FrindInvites", "PendingRequests", "FriendRequests")
+        @Html.ActionLink("FriendInvites", "PendingRequests", "FriendRequests")
 
     }
 
