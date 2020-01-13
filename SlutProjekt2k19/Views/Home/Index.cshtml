@@ -70,10 +70,9 @@ else
                                 @class = "col-md-2 control-label"
                             })
                             <div class="col-md-12 col-sm-12">
-                                @Html.TextBoxFor(m => m.Gender, new
-                                {
-                                    @class = "form-control"
-                                })
+
+                                @Html.DropDownListFor(model => model.Gender, new SelectList(new[] { "Man", "Kvinna" }))
+                                
                             </div>
                         </div>
                         <div class="form-group">

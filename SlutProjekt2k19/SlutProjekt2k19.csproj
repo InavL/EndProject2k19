@@ -380,13 +380,9 @@
     <Content Include="Views\Profiles\Index.cshtml" />
     <Content Include="Views\Profiles\Feed.cshtml" />
     <Content Include="Views\Images\AddImages.cshtml" />
-    <Content Include="Views\Images\UploadImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Image\" />
-    <Folder Include="Views\NewProfile\" />
-    <Folder Include="Views\PostApi\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

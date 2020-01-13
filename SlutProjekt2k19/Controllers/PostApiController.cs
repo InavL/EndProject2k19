@@ -9,8 +9,11 @@ namespace SlutProjekt2k19.Controllers
     [RoutePrefix("api/posts")]
     public class TodoApiController : ApiController
     {
+        /*
+
         [HttpGet] // Anropa med $.get
         [Route("")] // api/posts
+            
         public Posts[] GetAll()
         {
             return new DBContext().Posts.OrderBy(t => t.IsDone ? 1 : 0).ToArray();
@@ -22,13 +25,13 @@ namespace SlutProjekt2k19.Controllers
         {
             // /api/posts/toggle?id=XXX
             var ctx = new DBContext();
-            Context();
-            var todo = ctx.Posts.FirstOrDefault(t => t.Id == id);
-            if (todo != null)
+            var post = ctx.Posts.FirstOrDefault(t => t.Id == id);
+            if (post != null)
             {
-                todo.IsDone = !todo.IsDone;
+                post.IsDone = !post.IsDone;
                 ctx.SaveChanges();
             }
         }
+        */
     }
 }

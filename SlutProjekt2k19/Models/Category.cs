@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SlutProjekt2k19.Models
 {
     public class Category
     {
-        [Key]
-        public int ID { set; get; }
-
-        public string Name  { set; get; }
+        [Key] public int Id { set; get; }
+        public string Name { set; get; }
     }
 }

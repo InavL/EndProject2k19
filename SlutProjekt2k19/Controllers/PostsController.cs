@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SlutProjekt2k19.Models;
 
@@ -27,11 +23,13 @@ namespace SlutProjekt2k19.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Posts posts = db.Posts.Find(id);
             if (posts == null)
             {
                 return HttpNotFound();
             }
+
             return View(posts);
         }
 
@@ -46,7 +44,8 @@ namespace SlutProjekt2k19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Content,Author,OnProfile")] Posts posts)
+        public ActionResult Create([Bind(Include = "ID,Content,Author,OnProfile")]
+            Posts posts)
         {
             if (ModelState.IsValid)
             {
@@ -65,11 +64,13 @@ namespace SlutProjekt2k19.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Posts posts = db.Posts.Find(id);
             if (posts == null)
             {
                 return HttpNotFound();
             }
+
             return View(posts);
         }
 
@@ -78,7 +79,8 @@ namespace SlutProjekt2k19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Content,Author,OnProfile")] Posts posts)
+        public ActionResult Edit([Bind(Include = "ID,Content,Author,OnProfile")]
+            Posts posts)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +88,7 @@ namespace SlutProjekt2k19.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(posts);
         }
 
@@ -96,11 +99,13 @@ namespace SlutProjekt2k19.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Posts posts = db.Posts.Find(id);
             if (posts == null)
             {
                 return HttpNotFound();
             }
+
             return View(posts);
         }
 
@@ -121,6 +126,7 @@ namespace SlutProjekt2k19.Controllers
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

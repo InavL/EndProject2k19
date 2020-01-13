@@ -31,8 +31,6 @@
         <th></th>
     </tr>
 
-
-
     <tr class="textcolor">
         <td>
             @Html.DisplayFor(model => model.Name)
@@ -46,24 +44,25 @@
         <td>
             @Html.DisplayFor(model => model.Bio)
         </td>
-
-        @if (Model.Image != null)
-        {
-            <img src="@Url.Content(@Model.Image)" style="height:200px;width:200px; border-radius: 50%;" alt="Profile_Image">
-        }
-        else
-        {
-            <img src="~/Images/Test.jpg" style="height:200px;width:200px; border-radius: 50%;" alt="Profile_Image">
-        }
-
-        </td>
-        @if (@Model.Id != null){
+        
+        
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = profile }) |
-            @Html.ActionLink("Details", "Details", new { id = profile }) |
-            @Html.ActionLink("Delete", "Delete", new { id = profile })|
-            @Html.ActionLink("Add/ Change profile picture", "AddImageView", "Images")
+            @if (@Model.Image != null) {
+                <img src="@Url.Content(@Model.Image)" style="height:200px;width:200px; border-radius: 50%;" alt="Profile_Image">
+            }
+            else {
+                <img src="~/Images/Test.jpg" style="height: 200px; width: 200px; border-radius: 50%;" alt="Profile_Image">
+            }
         </td>
+        
+
+        @if (@Model.Id != null) {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {
+                    id = profile
+                }) |
+                @Html.ActionLink("Add/Change profile picture", "AddImageView", "Images")
+            </td>
         }
 
     </tr>

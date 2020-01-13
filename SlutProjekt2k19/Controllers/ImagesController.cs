@@ -1,9 +1,7 @@
 ﻿using SlutProjekt2k19.Models;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Entity;
-using System.Data.SqlClient;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -24,59 +22,58 @@ namespace SlutProjekt2k19.Controllers
 
         public ActionResult AddImage(HttpPostedFileBase file)
         {
-
-            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
-            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var claimsIdentity = (ClaimsIdentity) this.User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = claim.Value;
-            var profile = db.profiles.Find(userId);
-            var currentImage = profile.Image;
-            var profiles = db.profiles.ToList();
-            foreach (Profile item in profiles)
+
+            var profile = db.Profiles.Find(userId);
+            try
             {
-                if (userId == item.Id)
+                var currentImage = profile.Image;
+
+                if (userId == profile.Id)
                 {
-
-
                     //Har man en bild sen tidigare tas den gamla bilden bort och ny läggs till
                     if (currentImage != null)
                     {
-                        item.Image = "";
-                        db.Entry(item).State = EntityState.Modified;
+                        profile.Image = "";
+                        db.Entry(profile).State = EntityState.Modified;
                         string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         string extension = Path.GetExtension(file.FileName);
                         fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                        item.Image = "~/Images/" + fileName;
+                        profile.Image = "~/Images/" + fileName;
                         string imgPath = "~/Images/" + fileName;
                         fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
                         file.SaveAs(fileName);
-                        item.Image = imgPath;
-                        db.Entry(item).State = EntityState.Modified;
+                        profile.Image = imgPath;
+                        System.Console.WriteLine(fileName + imgPath);
+                        db.Entry(profile).State = EntityState.Modified;
                         db.SaveChanges();
                     }
                 }
                 else
                 {
                     //Ny bild läggs till
-
                     string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                     string extension = Path.GetExtension(file.FileName);
                     fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    item.Image = "~/Images/" + fileName;
+                    profile.Image = "~/Images/" + fileName;
                     string imgPath = "~/Images/" + fileName;
                     fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
                     file.SaveAs(fileName);
-                    item.Image = imgPath;
-                    db.Entry(item).State = EntityState.Modified;
+                    profile.Image = imgPath;
+                    db.Entry(profile).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-
             }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+
             return RedirectToAction("Index", "Profiles");
         }
-
-    }     
-  }
-    
-
-
-    
+    }
+}
