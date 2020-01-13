@@ -94,6 +94,20 @@ namespace SlutProjekt2k19.Models
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage =
             "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Image")]
+        public string Image {
+            get; set;
+        }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "UserCredentials")]
+        public string UserCredentials {
+            get; set;
+        }
     }
 
     public class ResetPasswordViewModel

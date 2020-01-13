@@ -3,6 +3,7 @@
 }
 
 @using Microsoft.AspNet.Identity
+@using SlutProjekt2k19.Views.Shared
 @if (Request.IsAuthenticated)
 {
     <div class="container" style="margin-top: 30px">
@@ -32,6 +33,11 @@ else
                     role = "form"
                 }))
                 {
+                    var items = new List<SelectListItem>()
+                    {
+                        new SelectListItem() {Text = "Woman", Value = "#"},
+                    };
+
                     @Html.AntiForgeryToken()
                     <h4>Create an account:</h4>
 
@@ -65,26 +71,26 @@ else
 
                     <div class="form-row">
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Gender, new
-                            {
+                            @Html.LabelFor(m => m.Email, new {
                                 @class = "col-md-2 control-label"
                             })
                             <div class="col-md-12 col-sm-12">
-
-                                @Html.DropDownListFor(model => model.Gender, new SelectList(new[] { "Man", "Kvinna" }))
-                                
+                                @Html.TextBoxFor(m => m.Email, new {
+                                    @class = "form-control"
+                                })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Email, new
-                            {
+                            @Html.LabelFor(m => m.Gender, new {
                                 @class = "col-md-2 control-label"
                             })
                             <div class="col-md-12 col-sm-12">
-                                @Html.TextBoxFor(m => m.Email, new
-                                {
+                                @*@Html.DropDownList("Name", items, "Man", new {
                                     @class = "form-control"
-                                })
+                                })*@
+
+                                @Html.DropDownListFor(model => model.Gender, new SelectList(new[] { "Man", "Kvinna" }))
+
                             </div>
                         </div>
                     </div>

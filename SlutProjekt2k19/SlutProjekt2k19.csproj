@@ -204,6 +204,7 @@
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\Shared\BootstrapHtml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -395,7 +396,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\NewProfile\" />
+    <Folder Include="Views\BootstrapHtml\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

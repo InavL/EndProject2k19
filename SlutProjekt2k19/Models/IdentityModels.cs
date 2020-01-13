@@ -10,7 +10,7 @@ namespace SlutProjekt2k19.Models
     public class ApplicationUser : IdentityUser
     {
 
-        public ICollection<PostMessage> Messages { get; set; }
+        //public ICollection<PostMessage> Messages { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

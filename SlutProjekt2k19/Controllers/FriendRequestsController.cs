@@ -31,7 +31,7 @@ namespace SlutProjekt2k19.Controllers
                 
                 Console.WriteLine(name);
                 var list = db.FriendRequests.ToList();
-                var profilelist = db.profiles.ToList();
+                var profilelist = db.Profiles.ToList();
                 var list2 = new List<Profile>();
                 String userString = userId.ToString();
                 
@@ -94,12 +94,11 @@ namespace SlutProjekt2k19.Controllers
             var userId = claim.Value;
 
             Console.WriteLine(id);
-            var list = db.FriendRequests.ToList();
-            var profilelist = db.profiles.ToList();
+            db.FriendRequests.ToList();
+            var profilelist = db.Profiles.ToList();
             var list2 = new List<Profile>();
             String userString = userId.ToString();
             ViewBag.MyString = "";
-            string name = "";
             foreach (Profile item in profilelist)
             {
                 if (Convert.ToString(item.UserCredentials) == id)
@@ -129,7 +128,7 @@ namespace SlutProjekt2k19.Controllers
 
 
                 var friendlist = db.FriendRequests.ToList();
-                var profilelist = db.profiles.ToList();
+                var profilelist = db.Profiles.ToList();
                 var list2 = new List<Profile>();
                 String userString = userId.ToString();
                 var pendingFriends = new List<String>();
@@ -138,7 +137,7 @@ namespace SlutProjekt2k19.Controllers
 
                 foreach (Profile item in profilelist)
                 {
-                    if(userString == item.ID)
+                    if(userString == item.Id)
                     {
                         cred = item.UserCredentials;
                     }
@@ -160,7 +159,7 @@ namespace SlutProjekt2k19.Controllers
                 {
                     foreach (String to in pendingFriends)
                     {
-                        if (item.ID == to)
+                        if (item.Id == to)
                         {
                             friendProfiles.Add(item);
                         }
@@ -249,7 +248,7 @@ namespace SlutProjekt2k19.Controllers
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
-            var profilelist = db.profiles.ToList();
+            var profilelist = db.Profiles.ToList();
                 var list2 = new List<Profile>();
                 String userString = userId.ToString();
                 var pendingFriends = new List<String>();
@@ -258,7 +257,7 @@ namespace SlutProjekt2k19.Controllers
 
                 foreach (Profile item in profilelist)
                 {
-                    if(userString == item.ID)
+                    if(userString == item.Id)
                     {
                         to = item.UserCredentials;
                     }
@@ -292,7 +291,7 @@ public ActionResult Add(string id)
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
-            var profilelist = db.profiles.ToList();
+            var profilelist = db.Profiles.ToList();
             var list2 = new List<Profile>();
             String userString = userId.ToString();
             var pendingFriends = new List<String>();
@@ -305,7 +304,7 @@ public ActionResult Add(string id)
 
             foreach (Profile itemP in profilelist)
             {
-                if (userString == itemP.ID)
+                if (userString == itemP.Id)
                 {
                     to = itemP.UserCredentials;
                     foreach (FriendRequest itemF in friendlist)
@@ -322,7 +321,7 @@ public ActionResult Add(string id)
                             db.SaveChanges();
                             foreach (Profile friend in profilelist)
                             {
-                                if (friend.ID == id)
+                                if (friend.Id == id)
                                 {
                                     friendProfiles.Add(friend);
                                 }

@@ -23,7 +23,7 @@ namespace SlutProjekt2k19.Controllers
             var userId = claim.Value;
 
            var contacts = db.Contactlists.ToList();
-           var profiles = db.profiles.ToList();
+           var profiles = db.Profiles.ToList();
             var contactList = new List<Profile>();
            foreach (Contactlist itemC in contacts)
             {
@@ -31,7 +31,7 @@ namespace SlutProjekt2k19.Controllers
                 { 
                     foreach(Profile itemP in profiles) 
                     {
-                        if(Convert.ToString(itemC.Friend2) == itemP.ID)
+                        if(Convert.ToString(itemC.Friend2) == itemP.Id)
                         {
                             contactList.Add(itemP);
                         }

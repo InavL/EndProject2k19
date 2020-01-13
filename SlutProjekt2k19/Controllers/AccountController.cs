@@ -70,7 +70,7 @@ namespace SlutProjekt2k19.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = model.RememberMe});
+                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, model.RememberMe});
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -158,6 +158,10 @@ namespace SlutProjekt2k19.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+
+
+                    int maxInt = context.Profiles.Max(p => p.UserCredentials);
+
                     context.Profiles.Add(new Profile
                     {
                         Id = user.Id,
@@ -165,6 +169,8 @@ namespace SlutProjekt2k19.Controllers
                         Age = model.Age,
                         Gender = model.Gender,
                         Bio = model.Bio,
+                        Image = "~/Images/Test.jpg",
+                        UserCredentials = maxInt + 1,
                     });
                     context.SaveChanges();
 
@@ -331,7 +337,7 @@ namespace SlutProjekt2k19.Controllers
             }
 
             return RedirectToAction("VerifyCode",
-                new {Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe});
+                new {Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe});
         }
 
         //
