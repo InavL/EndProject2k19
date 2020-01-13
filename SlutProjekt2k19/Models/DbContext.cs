@@ -6,8 +6,12 @@ namespace SlutProjekt2k19.Models
     {
         public DbSet<Profile> Profiles { get; set; }
 
-        public DbSet<Posts> Posts { get; set; }
+        public DbSet<PostMessage> Posts { get; set; }
         
+        public DbSet<FriendRequest> FriendRequests { get; set; }
+
+        public DbSet<Contactlist> Contactlists { get; set; }
+
         public DBContext() : base("slutprojectdb"){}
     }
 }

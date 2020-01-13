@@ -28,6 +28,11 @@ namespace SlutProjekt2k19.Controllers
                 new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
 
+        public ActionResult ViewMessage()
+        {
+            return View();
+        }
+
         // GET: Profiles
         public ActionResult Index()
         {
@@ -37,19 +42,15 @@ namespace SlutProjekt2k19.Controllers
                 var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
-                var user = UserManager.FindById(User.Identity.GetUserId());
                 var list = db.Profiles.ToList();
                 Profile list2 = null;
-                String userString = userId.ToString();
                 foreach (Profile item in list)
                 {
-                    if (userString == item.Id)
+                    if (userId == item.Id)
                     {
                         list2 = item;
                     }
                 }
-
-
                 return View(list2);
             }
             catch

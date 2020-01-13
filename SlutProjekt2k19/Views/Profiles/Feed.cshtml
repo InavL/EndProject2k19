@@ -25,7 +25,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Age)
         </th>
-
+        <th>
+            @Html.ActionLink("Match", "Index", "FriendRequests");
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -52,7 +54,9 @@
             @*<td>
                 @Html.DisplayFor(modelItem => item.UserCredentials)
             </td>*@
-            
+            <td>
+                @Html.ActionLink("View messages", "ViewMessages", "Profiles");
+            </td>
         </tr>
     }
 
