@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace SlutProjekt2k19.Models
 {
@@ -56,6 +58,22 @@ namespace SlutProjekt2k19.Models
 
     public class RegisterViewModel
     {
+        public static int maxInt = 0;
+
+        public RegisterViewModel()
+        {
+            DBContext db = new DBContext();
+            
+            if(!DBNull.Value.Equals(UserCredentials))
+            {
+                maxInt = 1;
+            }
+            else
+            {
+                maxInt = db.Profiles.Max(p => p.UserCredentials);
+            }
+        }
+
         [Required]
         [DataType(DataType.Text)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
@@ -91,24 +109,21 @@ namespace SlutProjekt2k19.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage =
+        [Compare("Password", ErrorMessage =
             "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Image")]
-        public string Image {
-            get; set;
-        }
+        public string Image { get; set; } = "~/Images/Test.jpg";
 
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "UserCredentials")]
-        public string UserCredentials {
-            get; set;
-        }
+        public int UserCredentials { get; set; } = maxInt + 1;
     }
+
 
     public class ResetPasswordViewModel
     {

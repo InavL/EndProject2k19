@@ -169,8 +169,8 @@ namespace SlutProjekt2k19.Controllers
                         Age = model.Age,
                         Gender = model.Gender,
                         Bio = model.Bio,
-                        Image = "~/Images/Test.jpg",
-                        UserCredentials = maxInt + 1,
+                        Image = model.Image,
+                        UserCredentials = model.UserCredentials,
                     });
                     context.SaveChanges();
 
