@@ -26,9 +26,9 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-link">@Html.ActionLink("About", "About", "Home")</li>
                     <li class="nav-link">@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (Request.IsAuthenticated)
-                    {
+                    @if (Request.IsAuthenticated) {
                         <li class="nav-link">@Html.ActionLink("Profile", "Index", "Profiles")</li>
+                        <li> <p> Antal: @Html.Action("CountPendingRequests", "FriendRequests")</p></li>
                     }
                 </ul>
                 <ul class="nav navbar-nav nav-link">

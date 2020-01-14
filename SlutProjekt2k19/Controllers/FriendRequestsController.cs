@@ -87,6 +87,49 @@ namespace SlutProjekt2k19.Controllers
 
         // GET: FriendRequests/Details/5
 
+        public ActionResult CountPendingRequests() {
+            try {
+                var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var userId = claim.Value;
+
+
+                var friendlist = db.FriendRequests.ToList();
+                var profilelist = db.Profiles.ToList();
+                var list2 = new List<Profile>();
+                String userString = userId.ToString();
+                var pendingFriends = new List<String>();
+                int cred = 0;
+                var friendProfiles = new List<Profile>();
+
+                foreach (Profile item in profilelist) {
+                    if (userString == item.Id) {
+                        cred = item.UserCredentials;
+                    }
+                }
+
+
+                foreach (FriendRequest item in friendlist) {
+                    if (cred.ToString() == item.To) {
+                        pendingFriends.Add(item.From);
+                    }
+                }
+
+                foreach (Profile item in profilelist) {
+                    foreach (String to in pendingFriends) {
+                        if (item.Id == to) {
+                            friendProfiles.Add(item);
+                        }
+                    }
+                }
+
+                string count = friendProfiles.Count.ToString();
+                return Content(count);
+            }
+            catch {
+                return Content(null);
+            }
+        }
         public ActionResult SendFriendRequest(string id)
         {
             var claimsIdentity = (ClaimsIdentity) this.User.Identity;
