@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
+using SlutProjekt2k19.Models;
 
 namespace SlutProjekt2k19.Controllers
 {
@@ -6,6 +8,13 @@ namespace SlutProjekt2k19.Controllers
     {
         public ActionResult Index()
         {
+            var db = new ApplicationDbContext();
+            var profileList = db.Profiles.ToList();
+
+            var imageList = profileList.Select(profile => profile.Image).ToList();
+
+            ViewBag.Files = imageList;
+
             return View();
         }
 

@@ -1,24 +1,4 @@
 ﻿@using Microsoft.AspNet.Identity
-@using System.Security.Claims
-@using SlutProjekt2k19.Models
-@using System.Data.Entity
-
-@*@{
-    ApplicationDbContext db = new ApplicationDbContext();
-    var claimsIdentity = (ClaimsIdentity)this.User.Identity;
-    var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-    var Id = claim.Value;
-
-    var friendRequest = db.FriendRequest.Where(x => x.RecieverId.Id == Id && x.Accepted == false);
-
-    var numberOfFriendRequests = friendRequest.Count().ToString();
-
-    if (Int32.Parse(numberOfFriendRequests) < 1)
-    {
-        numberOfFriendRequests = "0";
-
-    }*@
-
 
 @if (Request.IsAuthenticated)
 {
@@ -42,6 +22,5 @@ else
         <li class="navpadd nav-link">
             @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink"})
         </li>
-        @*<li @Html.ActionLink("FriendRequests" + " " + numberOfFriendRequests, "FriendRequest", "FriendRequests")</li>*@
     </ul>
 }

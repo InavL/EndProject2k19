@@ -1,0 +1,133 @@
+﻿@using SlutProjekt2k19.Models
+@model IEnumerable<SlutProjekt2k19.Models.Profile>
+@{
+    var imgL = new List<string>();
+
+    if (ViewBag.Files != null)
+    {
+        imgL.AddRange((List<string>) ViewBag.Files);
+    }
+}
+@if (Request.IsAuthenticated)
+{
+    <div class="container">
+
+        <div class="row">
+            @if (imgL.Count != 0)
+            {
+                <div class="col-md-4 col-sm-4">
+                    <a href="">
+                        <img alt="AltText" src="@Url.Content(imgL[0])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                    </a>
+                </div>
+            }
+            @if (imgL.Count > 1)
+            {
+                <div class="col-md-4 col-sm-4">
+                    <a href="">
+                        <img alt="AltText" src="@Url.Content(imgL[1])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                    </a>
+                </div>
+            }
+            @if (imgL.Count > 2)
+            {
+                <div class="col-md-4 col-sm-4">
+                    <a href="">
+                        <img alt="AltText" src="@Url.Content(imgL[2])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                    </a>
+                </div>
+            }
+        </div>
+        <hr/>
+        <div class="row">
+            @if (imgL.Count > 3)
+            {
+                <div class="col-md-4 col-sm-4">
+                    <a href="">
+                        <img alt="AltText" src="@Url.Content(imgL[3])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                    </a>
+                </div>
+            }
+            @if (imgL.Count > 4)
+            {
+                <div class="col-md-4 col-sm-4">
+                    <a href="">
+                        <img alt="AltText" src="@Url.Content(imgL[4])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                    </a>
+                </div>
+            }
+            @if (imgL.Count > 5)
+            {
+                <div class="col-md-4 col-sm-4">
+                    <a href="">
+                        <img alt="AltText" src="@Url.Content(imgL[5])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-sm-6">
+        <div class="container">
+            <h2>People you can meet on F&S:</h2>
+            <div class="row">
+                @if (imgL.Count != 0)
+                {
+                    <div class="col-md-6 col-sm-12">
+                        <a href="">
+                            <img alt="AltText" src="@Url.Content(imgL[0])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                        </a>
+                    </div>
+                }
+                @if (imgL.Count > 1)
+                {
+                    <div class="col-md-6 col-sm-12">
+                        <a href="">
+                            <img alt="AltText" src="@Url.Content(imgL[1])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                        </a>
+                    </div>
+                }
+            </div>
+            <hr/>
+            <div class="row">
+                @if (imgL.Count > 2)
+                {
+                    <div class="col-md-6 col-sm-12">
+                        <a href="">
+                            <img alt="AltText" src="@Url.Content(imgL[2])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                        </a>
+                    </div>
+                }
+                @if (imgL.Count > 3)
+                {
+                    <div class="col-md-6 col-sm-12">
+                        <a href="">
+                            <img alt="AltText" src="@Url.Content(imgL[3])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                        </a>
+                    </div>
+                }
+            </div>
+            <hr/>
+            <div class="row">
+                @if (imgL.Count > 4)
+                {
+                    <div class="col-md-6 col-sm-12">
+                        <a href="">
+                            <img alt="AltText" src="@Url.Content(imgL[4])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                        </a>
+                    </div>
+                }
+                @if (imgL.Count > 5)
+                {
+                    <div class="col-md-6 col-sm-12">
+                        <a href="">
+                            <img alt="AltText" src="@Url.Content(imgL[5])" style="height: 200px; width: 200px; border-radius: 50%;" class="img-fluid">
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

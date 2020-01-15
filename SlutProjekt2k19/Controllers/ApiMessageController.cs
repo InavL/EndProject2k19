@@ -15,17 +15,13 @@ namespace SlutProjekt2k19.Controllers
     public class ApiMessageController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        public ApiMessageController() 
-        {
-            var context = new ApplicationDbContext();
-        }
 
         //[Route("list")]
         [HttpGet]
         public IEnumerable<PostMessageDto> List()
         {
-            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
-            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
             return db.Posts
@@ -33,9 +29,6 @@ namespace SlutProjekt2k19.Controllers
                 .OrderBy(m => m.Timestamp)
                 .ToList()
                 .Select(m => new PostMessageDto(m));
-
-
-
         }
 
         //[Route("send")]

@@ -23,7 +23,6 @@ namespace SlutProjekt2k19.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
         public DbSet<Profile> Profiles { get; set; }
 
         public DbSet<PostMessage> Posts { get; set; }

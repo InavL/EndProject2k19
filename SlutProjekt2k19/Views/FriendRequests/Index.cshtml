@@ -1,20 +1,21 @@
-﻿
-@model IEnumerable<SlutProjekt2k19.Models.Profile>
+﻿@model IEnumerable<SlutProjekt2k19.Models.Profile>
 
 @{
     ViewBag.Title = "Friend Requests";
 }
 
-<h2>Search for a Match by Name</h2>
+<h2>Search for a Friend by Name</h2>
 
 @using (Html.BeginForm("Index", "FriendRequests", FormMethod.Get))
 {
-<p>
-    Name  : @Html.TextBox("name")<br />
-    <input type="submit" class="btn btn-primary" value="Search" />
-</p>
+    <hr/>
+    <p>
+        Name : @Html.TextBox("name")
+        <input type="submit" class="btn btn-primary" value="Search"/>
+    </p>
 }
-<table class="table">
+<hr/>
+<table class="table textcolor">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -31,14 +32,25 @@
         <th>
             @Html.DisplayNameFor(model => model.Age)
         </th>
-        @foreach (var item in Model)
-        {
+        <th>
+            @Html.DisplayNameFor(model => model.UserCredentials)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                @if (item.Image != null)
+                {
+                    <img src="@Url.Content(item.Image)" style="height: 50px; width: 50px;" alt="Profile_Image">
+                }
+                else
+                {
+                    <img src="~/Images/Test.jpg" style="height: 50px; width: 50px;" alt="Profile_Image">
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Bio)
@@ -49,14 +61,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
-            <th>
-
-            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserCredentials)
+            </td>
         </tr>
-
         @Html.Partial("SendFriendRequest")
-        @Html.ActionLink("FriendInvites", "PendingRequests", "FriendRequests")
-
     }
-
-    </table>
+</table>

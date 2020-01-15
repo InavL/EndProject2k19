@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SlutProjekt2k19.Models
 {
@@ -58,19 +57,19 @@ namespace SlutProjekt2k19.Models
 
     public class RegisterViewModel
     {
-        public static int maxInt = 0;
+        public static int Max = 0;
 
         public RegisterViewModel()
         {
             var db = new ApplicationDbContext();
+            var profiles = db.Profiles;
 
-            if (!DBNull.Value.Equals(UserCredentials))
+            foreach (var prof in profiles)
             {
-                maxInt = 1;
-            }
-            else
-            {
-                maxInt = db.Profiles.Max(p => p.UserCredentials);
+                if (prof.UserCredentials > Max)
+                {
+                    Max = prof.UserCredentials;
+                }
             }
         }
 
@@ -121,9 +120,8 @@ namespace SlutProjekt2k19.Models
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "UserCredentials")]
-        public int UserCredentials { get; set; } = maxInt + 1;
+        public int UserCredentials { get; set; } = Max;
     }
-
 
     public class ResetPasswordViewModel
     {
