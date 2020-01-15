@@ -9,63 +9,43 @@
     }
 }
 
-<h2>Profile</h2>
-
-
-
-<table class="table textcolor">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Age)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bio)
-        </th>
-        <th>
-            <a>Options</a>
-        </th>
-    </tr>
-
-    <tr class="textcolor">
-        <td>
-            @if (@Model.Image != null) {
-                <img src="@Url.Content(@Model.Image)" style="height: 200px; width: 200px; border-radius: 50%;" alt="Profile_Image">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                @if (@Model.Image != null) {
+                    <img src="@Url.Content(@Model.Image)" alt="Profile_Image" class="card-img-top">
+                }
+                else {
+                    <img src="~/Images/Test.jpg" alt="Profile_Image" class="card-img-top">
+                }
+                <div class="card-body textcolor2">
+                    <h5 class="card-title">@Html.DisplayFor(model => model.Name)</h5>
+                    <p class="card-text">@Html.DisplayNameFor(model => model.Age): @Html.DisplayFor(model => model.Age)</p>
+                    <p class="card-text">@Html.DisplayNameFor(model => model.Gender): @Html.DisplayFor(model => model.Gender)</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            <hr/>
+            @if (@Model.Id != null) {
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new {
+                        id = profile
+                    }) |
+                    @Html.ActionLink("Feed", "Feed", "Profiles") |
+                    @Html.ActionLink("Friend Invites", "PendingRequests", "FriendRequests") |
+                    @Html.ActionLink("Contactlist", "Index", "Contactlists")
+                </p>
+                <p>
+                    @Html.ActionLink("Add/Change Profile Picture", "AddImageView", "Images")
+                </p>
             }
-            else {
-                <img src="~/Images/Test.jpg" style="height: 200px; width: 200px; border-radius: 50%;" alt="Profile_Image">
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.Age)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.Bio)
-        </td>
-        @if (@Model.Id != null) {
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {
-                    id = profile
-                }) |
-                @Html.ActionLink("Add/Change Profile Picture", "AddImageView", "Images") |
-                @Html.ActionLink("Feed", "Feed", "Profiles") |
-                @Html.ActionLink("Friend Invites", "PendingRequests", "FriendRequests") |
-                @Html.ActionLink("Contactlist", "Index", "Contactlists")
-            </td>
-        }
-    </tr>
-</table>
+
+        </div>
+        <div class="col-md-8">
+            <h3>Bio</h3>
+            <p>@Html.DisplayFor(model => model.Bio)</p>
+
+        </div>
+    </div>
+</div>
