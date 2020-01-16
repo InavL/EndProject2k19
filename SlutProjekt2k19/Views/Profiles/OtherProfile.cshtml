@@ -1,12 +1,8 @@
 ﻿@model SlutProjekt2k19.Models.Profile
 
 @{
-    ViewBag.Title = "Profile";
-    var profile = "";
-    if (@Model.Id != null)
-    {
-        profile = @Model.Id;
-    }
+    ViewBag.Title = Html.DisplayFor(model => model.Name);
+
 }
 
 <div class="container">
@@ -28,14 +24,6 @@
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
-            @if (@Model.Id != null)
-            {
-                <p style="padding-top: 1rem;">
-                    @Html.ActionLink("Edit", "Edit", new {id = profile}) |
-                    @Html.ActionLink("Add/Change Profile Picture", "AddImageView", "Images")
-                </p>
-            }
-
         </div>
         <div class="col-md-8 col-sm-12">
             <div class="jumbotron shadow p-3 mb-5 bg-white rounded backcolor">

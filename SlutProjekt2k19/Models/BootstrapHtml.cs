@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 
-namespace SlutProjekt2k19.Views.Shared {
+namespace SlutProjekt2k19.Views.Shared
+{
     // GET: BootstrapHtml
-    public class BootstrapHtml {
-        public static MvcHtmlString Dropdown(string id, List<SelectListItem> selectListItems, string label) {
-            var button = new TagBuilder("button") {
+    public class BootstrapHtml
+    {
+        public static MvcHtmlString Dropdown(string id, List<SelectListItem> selectListItems, string label)
+        {
+            var button = new TagBuilder("button")
+            {
                 Attributes =
                 {
                     {"id", id},
@@ -34,15 +35,18 @@ namespace SlutProjekt2k19.Views.Shared {
             return new MvcHtmlString(wrapper.ToString());
         }
 
-        private static string BuildCaret() {
+        private static string BuildCaret()
+        {
             var caret = new TagBuilder("span");
             caret.AddCssClass("caret");
 
             return caret.ToString();
         }
 
-        private static string BuildDropdown(string id, IEnumerable<SelectListItem> items) {
-            var list = new TagBuilder("ul") {
+        private static string BuildDropdown(string id, IEnumerable<SelectListItem> items)
+        {
+            var list = new TagBuilder("ul")
+            {
                 Attributes =
                 {
                     {"class", "dropdown-menu"},
@@ -59,8 +63,10 @@ namespace SlutProjekt2k19.Views.Shared {
             return list.ToString();
         }
 
-        private static string BuildListRow(SelectListItem item) {
-            var anchor = new TagBuilder("a") {
+        private static string BuildListRow(SelectListItem item)
+        {
+            var anchor = new TagBuilder("a")
+            {
                 Attributes =
                 {
                     {"role", "menuitem"},

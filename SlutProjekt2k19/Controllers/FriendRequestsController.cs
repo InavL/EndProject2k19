@@ -21,9 +21,7 @@ namespace SlutProjekt2k19.Controllers
             var profiles = from p in db.Profiles
                 select p;
 
-            if (!String.IsNullOrEmpty(searchString)) {
-                profiles = profiles.Where(s => s.Name.Contains(searchString));
-            }
+            if (!string.IsNullOrEmpty(searchString)) profiles = profiles.Where(s => s.Name.Contains(searchString));
 
             return View(await profiles.ToListAsync());
         }
@@ -33,7 +31,7 @@ namespace SlutProjekt2k19.Controllers
         {
             try
             {
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claimsIdentity = (ClaimsIdentity) User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
@@ -45,31 +43,17 @@ namespace SlutProjekt2k19.Controllers
                 var friendProfiles = new List<Profile>();
 
                 foreach (var item in profileList)
-                {
                     if (userString == item.Id)
-                    {
                         cred = item.UserCredentials;
-                    }
-                }
 
                 foreach (var item in friendList)
-                {
                     if (cred.ToString() == item.To)
-                    {
                         pendingFriends.Add(item.From);
-                    }
-                }
 
                 foreach (var item in profileList)
-                {
-                    foreach (var to in pendingFriends)
-                    {
-                        if (item.Id == to)
-                        {
-                            friendProfiles.Add(item);
-                        }
-                    }
-                }
+                foreach (var to in pendingFriends)
+                    if (item.Id == to)
+                        friendProfiles.Add(item);
 
                 var count = friendProfiles.Count.ToString();
                 return Content(count);
@@ -95,7 +79,6 @@ namespace SlutProjekt2k19.Controllers
             ViewBag.MyString = "";
 
             foreach (var item in profilelist)
-            {
                 if (Convert.ToString(item.UserCredentials) == id && item.Id != userId)
                 {
                     var friendrequests = new FriendRequest
@@ -107,7 +90,6 @@ namespace SlutProjekt2k19.Controllers
                     list2.Add(item);
                     ViewBag.MyString = "A new friend request has been sent";
                 }
-            }
 
             return RedirectToAction("Feed", "Profiles");
         }
@@ -116,8 +98,8 @@ namespace SlutProjekt2k19.Controllers
         {
             try
             {
-                var claimsIdentity = (ClaimsIdentity) this.User.Identity;
-                var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var claimsIdentity = (ClaimsIdentity) User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
                 var friendlist = db.FriendRequests.ToList();
@@ -128,31 +110,17 @@ namespace SlutProjekt2k19.Controllers
                 var friendProfiles = new List<Profile>();
 
                 foreach (var item in profilelist)
-                {
                     if (userString == item.Id)
-                    {
                         cred = item.UserCredentials;
-                    }
-                }
 
                 foreach (var item in friendlist)
-                {
                     if (cred.ToString() == item.To)
-                    {
                         pendingFriends.Add(item.From);
-                    }
-                }
 
                 foreach (var item in profilelist)
-                {
-                    foreach (var to in pendingFriends)
-                    {
-                        if (item.Id == to)
-                        {
-                            friendProfiles.Add(item);
-                        }
-                    }
-                }
+                foreach (var to in pendingFriends)
+                    if (item.Id == to)
+                        friendProfiles.Add(item);
 
                 return View(friendProfiles);
             }
@@ -164,16 +132,10 @@ namespace SlutProjekt2k19.Controllers
 
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var friendRequest = db.FriendRequests.Find(id);
-            if (friendRequest == null)
-            {
-                return HttpNotFound();
-            }
+            if (friendRequest == null) return HttpNotFound();
 
             return View(friendRequest);
         }
@@ -204,10 +166,7 @@ namespace SlutProjekt2k19.Controllers
         // GET: FriendRequests/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var friendRequest = db.FriendRequests.ToList();
             return View(friendRequest);
@@ -233,8 +192,8 @@ namespace SlutProjekt2k19.Controllers
         // GET: FriendRequests/Delete/5
         public ActionResult Delete(string id)
         {
-            var claimsIdentity = (ClaimsIdentity) this.User.Identity;
-            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var claimsIdentity = (ClaimsIdentity) User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
             var profilelist = db.Profiles.ToList();
@@ -242,28 +201,19 @@ namespace SlutProjekt2k19.Controllers
             var to = 0;
 
             foreach (var item in profilelist)
-            {
                 if (userString == item.Id)
-                {
                     to = item.UserCredentials;
-                }
-            }
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var friendlist = db.FriendRequests.ToList();
 
             foreach (var item in friendlist)
-            {
                 if (item.To == to.ToString() && item.From == id.ToString())
                 {
                     db.FriendRequests.Remove(item);
                     db.SaveChanges();
                 }
-            }
 
             return RedirectToAction("PendingRequests");
         }
@@ -281,13 +231,11 @@ namespace SlutProjekt2k19.Controllers
             var friendlist = db.FriendRequests.ToList();
 
             foreach (var itemP in profilelist)
-            {
                 if (userString == itemP.Id)
                 {
                     var to = itemP.UserCredentials;
 
                     foreach (var itemF in friendlist)
-                    {
                         if (itemF.To == to.ToString() && itemF.From == id.ToString())
                         {
                             var contact = new Contactlist();
@@ -303,26 +251,17 @@ namespace SlutProjekt2k19.Controllers
                             db.SaveChanges();
 
                             foreach (var friend in profilelist)
-                            {
                                 if (friend.Id == id)
-                                {
                                     friendProfiles.Add(friend);
-                                }
-                            }
                         }
-                    }
                 }
-            }
 
             return View("../Contactlists/Index", friendProfiles);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            if (disposing) db.Dispose();
 
             base.Dispose(disposing);
         }

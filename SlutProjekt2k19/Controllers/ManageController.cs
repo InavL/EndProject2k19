@@ -27,14 +27,14 @@ namespace SlutProjekt2k19.Controllers
 
         public ApplicationSignInManager SignInManager
         {
-            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
-            private set { _signInManager = value; }
+            get => _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            private set => _signInManager = value;
         }
 
         public ApplicationUserManager UserManager
         {
-            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
-            private set { _userManager = value; }
+            get => _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            private set => _userManager = value;
         }
 
         //
@@ -80,10 +80,7 @@ namespace SlutProjekt2k19.Controllers
             if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
+                if (user != null) await SignInManager.SignInAsync(user, false, false);
 
                 message = ManageMessageId.RemoveLoginSuccess;
             }
@@ -108,10 +105,7 @@ namespace SlutProjekt2k19.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            if (!ModelState.IsValid) return View(model);
 
             // Generate the token and send it
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
@@ -136,10 +130,7 @@ namespace SlutProjekt2k19.Controllers
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if (user != null)
-            {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
+            if (user != null) await SignInManager.SignInAsync(user, false, false);
 
             return RedirectToAction("Index", "Manage");
         }
@@ -152,10 +143,7 @@ namespace SlutProjekt2k19.Controllers
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if (user != null)
-            {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
+            if (user != null) await SignInManager.SignInAsync(user, false, false);
 
             return RedirectToAction("Index", "Manage");
         }
@@ -177,20 +165,14 @@ namespace SlutProjekt2k19.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            if (!ModelState.IsValid) return View(model);
 
             var result =
                 await UserManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
             if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
+                if (user != null) await SignInManager.SignInAsync(user, false, false);
 
                 return RedirectToAction("Index", new {Message = ManageMessageId.AddPhoneSuccess});
             }
@@ -207,16 +189,10 @@ namespace SlutProjekt2k19.Controllers
         public async Task<ActionResult> RemovePhoneNumber()
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
-            if (!result.Succeeded)
-            {
-                return RedirectToAction("Index", new {Message = ManageMessageId.Error});
-            }
+            if (!result.Succeeded) return RedirectToAction("Index", new {Message = ManageMessageId.Error});
 
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if (user != null)
-            {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
+            if (user != null) await SignInManager.SignInAsync(user, false, false);
 
             return RedirectToAction("Index", new {Message = ManageMessageId.RemovePhoneSuccess});
         }
@@ -234,20 +210,14 @@ namespace SlutProjekt2k19.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            if (!ModelState.IsValid) return View(model);
 
             var result =
                 await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
+                if (user != null) await SignInManager.SignInAsync(user, false, false);
 
                 return RedirectToAction("Index", new {Message = ManageMessageId.ChangePasswordSuccess});
             }
@@ -275,10 +245,7 @@ namespace SlutProjekt2k19.Controllers
                 if (result.Succeeded)
                 {
                     var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                    if (user != null)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    }
+                    if (user != null) await SignInManager.SignInAsync(user, false, false);
 
                     return RedirectToAction("Index", new {Message = ManageMessageId.SetPasswordSuccess});
                 }
@@ -299,10 +266,7 @@ namespace SlutProjekt2k19.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if (user == null)
-            {
-                return View("Error");
-            }
+            if (user == null) return View("Error");
 
             var userLogins = await UserManager.GetLoginsAsync(User.Identity.GetUserId());
             var otherLogins = AuthenticationManager.GetExternalAuthenticationTypes()
@@ -331,10 +295,7 @@ namespace SlutProjekt2k19.Controllers
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
-            if (loginInfo == null)
-            {
-                return RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
-            }
+            if (loginInfo == null) return RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
 
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded
@@ -359,26 +320,17 @@ namespace SlutProjekt2k19.Controllers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get { return HttpContext.GetOwinContext().Authentication; }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         private void AddErrors(IdentityResult result)
         {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
+            foreach (var error in result.Errors) ModelState.AddModelError("", error);
         }
 
         private bool HasPassword()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
+            if (user != null) return user.PasswordHash != null;
 
             return false;
         }
@@ -386,10 +338,7 @@ namespace SlutProjekt2k19.Controllers
         private bool HasPhoneNumber()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PhoneNumber != null;
-            }
+            if (user != null) return user.PhoneNumber != null;
 
             return false;
         }

@@ -9,7 +9,6 @@ namespace SlutProjekt2k19.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-
         //public ICollection<PostMessage> Messages { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -26,7 +25,7 @@ namespace SlutProjekt2k19.Models
         public DbSet<Profile> Profiles { get; set; }
 
         public DbSet<PostMessage> Posts { get; set; }
-        
+
         public DbSet<FriendRequest> FriendRequests { get; set; }
 
         public DbSet<Contactlist> Contactlists { get; set; }

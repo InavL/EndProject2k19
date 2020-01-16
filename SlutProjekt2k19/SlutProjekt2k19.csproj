@@ -397,34 +397,16 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\UserCredentials\Index.cshtml" />
-    <Content Include="Views\UserCredentials\AddUsersForm.cshtml">
-      <BrowseToURL>~/Views/AddUsersForm.cshtml</BrowseToURL>
-    </Content>
-    <Content Include="Views\PostMessage\Create.cshtml" />
-    <Content Include="Views\PostMessage\Delete.cshtml" />
-    <Content Include="Views\PostMessage\Details.cshtml" />
-    <Content Include="Views\PostMessage\Edit.cshtml" />
     <Content Include="Views\Profiles\ViewMessages.cshtml" />
-    <Content Include="Views\Profiles\Create.cshtml" />
-    <Content Include="Views\Profiles\Delete.cshtml" />
-    <Content Include="Views\Profiles\Details.cshtml" />
     <Content Include="Views\Profiles\Edit.cshtml" />
     <Content Include="Views\Profiles\Index.cshtml" />
     <Content Include="Views\Profiles\Feed.cshtml" />
-    <Content Include="Views\FriendRequests\Create.cshtml" />
-    <Content Include="Views\FriendRequests\Delete.cshtml" />
-    <Content Include="Views\FriendRequests\Details.cshtml" />
-    <Content Include="Views\FriendRequests\Edit.cshtml" />
     <Content Include="Views\FriendRequests\Index.cshtml" />
     <Content Include="Views\FriendRequests\PendingRequests.cshtml" />
-    <Content Include="Views\Contactlists\Create.cshtml" />
-    <Content Include="Views\Contactlists\Delete.cshtml" />
-    <Content Include="Views\Contactlists\Details.cshtml" />
-    <Content Include="Views\Contactlists\Edit.cshtml" />
     <Content Include="Views\Contactlists\Index.cshtml" />
     <Content Include="Views\Images\AddImages.cshtml" />
     <Content Include="Views\Home\_PicturePartial.cshtml" />
+    <Content Include="Views\Profiles\OtherProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

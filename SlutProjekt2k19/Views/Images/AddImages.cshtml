@@ -1,6 +1,6 @@
 ﻿@model SlutProjekt2k19.Models.Profile
 
-@using (Html.BeginForm("AddImage", "Images", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("AddImage", "Images", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
 
@@ -9,14 +9,14 @@
         <h4>Image</h4>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Image, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                <input type="file" name="File" class="btn btn-primary" required />
+                <input type="file" name="File" class="btn btn-primary" required/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-primary" value="Create" />
+                <input type="submit" class="btn btn-primary" value="Create"/>
             </div>
         </div>
     </div>

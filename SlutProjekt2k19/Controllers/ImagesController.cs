@@ -1,9 +1,7 @@
 ﻿using SlutProjekt2k19.Models;
 using System;
 using System.Data.Entity;
-using System.Drawing.Printing;
 using System.IO;
-using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
@@ -22,7 +20,7 @@ namespace SlutProjekt2k19.Controllers
 
         public ActionResult AddImage(HttpPostedFileBase file)
         {
-            var claimsIdentity = (ClaimsIdentity) this.User.Identity;
+            var claimsIdentity = (ClaimsIdentity) User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
@@ -38,11 +36,11 @@ namespace SlutProjekt2k19.Controllers
                     {
                         profile.Image = "";
                         db.Entry(profile).State = EntityState.Modified;
-                        string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                        string extension = Path.GetExtension(file.FileName);
+                        var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var extension = Path.GetExtension(file.FileName);
                         fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                         profile.Image = "~/Images/" + fileName;
-                        string imgPath = "~/Images/" + fileName;
+                        var imgPath = "~/Images/" + fileName;
                         fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
                         file.SaveAs(fileName);
                         profile.Image = imgPath;
@@ -54,11 +52,11 @@ namespace SlutProjekt2k19.Controllers
                 else
                 {
                     //Ny bild läggs till
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    string extension = Path.GetExtension(file.FileName);
+                    var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                    var extension = Path.GetExtension(file.FileName);
                     fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                     profile.Image = "~/Images/" + fileName;
-                    string imgPath = "~/Images/" + fileName;
+                    var imgPath = "~/Images/" + fileName;
                     fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
                     file.SaveAs(fileName);
                     profile.Image = imgPath;

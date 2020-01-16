@@ -1,7 +1,12 @@
-﻿@model IEnumerable<SlutProjekt2k19.Models.Profile>
+﻿@using System.Security.Claims
+@model IEnumerable<SlutProjekt2k19.Models.Profile>
 
 @{
     ViewBag.Title = "Feed";
+
+    var claimsIdentity = (ClaimsIdentity) User.Identity;
+    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+    var userId = claim.Value;
 }
 
 @Html.ActionLink("Add a Friend", "Index", "FriendRequests")
@@ -24,34 +29,42 @@
         <th>
             @Html.DisplayNameFor(model => model.Image)
         </th>
-        <th></th>
+        <th>
+            <a>Options</a>
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bio)
-            </td>
-            <td>
-                @if (item.Image != null)
-                {
-                    <img src="@Url.Content(item.Image)" style="height: 50px; width: 50px;" alt="Profile_Image">
-                }
-                else
-                {
-                    <img src="~/Images/Test.jpg" style="height: 50px; width: 50px;" alt="Profile_Image">
-                }
-            </td>
-        </tr>
+        if (!item.Id.Equals(userId))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bio)
+                </td>
+                <td>
+                    @if (item.Image != null)
+                    {
+                        <img src="@Url.Content(item.Image)" style="height: 50px; width: 50px;" alt="Profile_Image">
+                    }
+                    else
+                    {
+                        <img src="~/Images/Test.jpg" style="height: 50px; width: 50px;" alt="Profile_Image">
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("View Profile", "OtherProfile", "Profiles", new {@id = item.Id}, null)
+                </td>
+            </tr>
+        }
     }
 </table>

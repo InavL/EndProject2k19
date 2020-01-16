@@ -1,12 +1,8 @@
 ﻿using SlutProjekt2k19.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
-using System.Web.Routing;
 using System.Data.Entity;
 
 namespace SlutProjekt2k19.Controllers
@@ -20,7 +16,7 @@ namespace SlutProjekt2k19.Controllers
         [HttpGet]
         public IEnumerable<PostMessageDto> List()
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claimsIdentity = (ClaimsIdentity) User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
@@ -33,7 +29,7 @@ namespace SlutProjekt2k19.Controllers
 
         //[Route("send")]
         [HttpPost]
-        public string Send([FromBody]PostMessageDto messageDto)
+        public string Send([FromBody] PostMessageDto messageDto)
         {
             try
             {
@@ -47,7 +43,5 @@ namespace SlutProjekt2k19.Controllers
                 return "Inte ok";
             }
         }
-
-
     }
 }

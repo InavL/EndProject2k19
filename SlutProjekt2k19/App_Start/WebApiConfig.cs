@@ -9,10 +9,10 @@ namespace SlutProjekt2k19
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
+                "DefaultApi",
+                "api/{controller}/{action}/{id}",
                 //routeTemplate: "api/{controller}/{id}",
-                defaults: new
+                new
                 {
                     id = RouteParameter.Optional
                 }

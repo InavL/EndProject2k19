@@ -1,15 +1,10 @@
 ﻿@using System.Security.Claims
-@using System.ServiceModel.Syndication
-@using SlutProjekt2k19.Models
 @model IEnumerable<SlutProjekt2k19.Models.Profile>
 
 @{
     ViewBag.Title = "Friend Requests";
-}
 
-@{
-
-    var claimsIdentity = (ClaimsIdentity)User.Identity;
+    var claimsIdentity = (ClaimsIdentity) User.Identity;
     var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
     var userId = claim.Value;
 
@@ -24,8 +19,8 @@
     //var contactList = db.Contactlists.ToList();
     //var friend1List = contactList.Select(friend1 => friend1.Friend1).ToList();
     //var friend2List = contactList.Select(friend2 => friend2.Friend2).ToList();
-}
 
+}
 
 <div class="container">
     <div class="row">
@@ -34,14 +29,10 @@
             @using (Html.BeginForm("Index", "FriendRequests", FormMethod.Get))
             {
                 <form asp-controller="Profiles" asp-action="Index">
-                    <ul class="list-inline">
-                        <li class="d-inline-block">
-                            <input type="text" class="form-control" name="SearchString">
-                        </li>
-                        <li class="d-inline-block">
-                            <input type="submit" class="btn btn-primary" value="Search" />
-                        </li>
-                    </ul>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="SearchString">
+                        <input type="submit" class="btn btn-primary" value="Search"/>
+                    </div>
                 </form>
             }
         </div>
@@ -50,14 +41,10 @@
 
             @using (Html.BeginForm("SendFriendRequest", "FriendRequests", FormMethod.Get))
             {
-                <ul class="list-inline">
-                    <li class="d-inline-block">
-                        <input type="text" class="form-control" name="id">
-                    </li>
-                    <li class="d-inline-block">
-                        <input type="submit" class="btn btn-primary" value="Add Friend" />
-                    </li>
-                </ul>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="id">
+                    <input type="submit" class="btn btn-primary" value="Add Friend"/>
+                </div>
             }
         </div>
     </div>
@@ -84,17 +71,21 @@
             <a>User Number</a>
         </th>
     </tr>
-    @foreach (var item in Model) {
-        if (!item.Id.Equals(userId)) {
+    @foreach (var item in Model)
+    {
+        if (!item.Id.Equals(userId))
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @if (item.Image != null) {
+                    @if (item.Image != null)
+                    {
                         <img src="@Url.Content(item.Image)" style="height: 50px; width: 50px;" alt="Profile_Image">
                     }
-                    else {
+                    else
+                    {
                         <img src="~/Images/Test.jpg" style="height: 50px; width: 50px;" alt="Profile_Image">
                     }
                 </td>

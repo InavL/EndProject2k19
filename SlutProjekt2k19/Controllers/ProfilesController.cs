@@ -21,21 +21,31 @@ namespace SlutProjekt2k19.Controllers
         {
             try
             {
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claimsIdentity = (ClaimsIdentity) User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
                 var list = db.Profiles.ToList();
-                Profile list2 = null;
-                foreach (Profile item in list)
-                {
-                    if (userId == item.Id)
-                    {
-                        list2 = item;
-                    }
-                }
+                var profile = new Profile();
+                foreach (var item in list.Where(item => userId == item.Id)) profile = item;
 
-                return View(list2);
+                return View(profile);
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
+        }
+
+        public ActionResult OtherProfile(string id)
+        {
+            try
+            {
+                var list = db.Profiles.ToList();
+                var profile = new Profile();
+                foreach (var item in list.Where(item => id == item.Id)) profile = item;
+
+                return View(profile);
             }
             catch
             {
@@ -54,16 +64,10 @@ namespace SlutProjekt2k19.Controllers
         // GET: Profiles/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Profile profile = db.Profiles.Find(id);
-            if (profile == null)
-            {
-                return HttpNotFound();
-            }
+            var profile = db.Profiles.Find(id);
+            if (profile == null) return HttpNotFound();
 
             return View(profile);
         }
@@ -100,16 +104,10 @@ namespace SlutProjekt2k19.Controllers
         // GET: Profiles/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Profile profile = db.Profiles.Find(id);
-            if (profile == null)
-            {
-                return HttpNotFound();
-            }
+            var profile = db.Profiles.Find(id);
+            if (profile == null) return HttpNotFound();
 
             return View(profile);
         }
@@ -135,26 +133,21 @@ namespace SlutProjekt2k19.Controllers
         // GET: Profiles/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Profile profile = db.Profiles.Find(id);
-            if (profile == null)
-            {
-                return HttpNotFound();
-            }
+            var profile = db.Profiles.Find(id);
+            if (profile == null) return HttpNotFound();
 
             return View(profile);
         }
 
         // POST: Profiles/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Profile profile = db.Profiles.Find(id);
+            var profile = db.Profiles.Find(id);
             db.Profiles.Remove(profile);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -162,10 +155,7 @@ namespace SlutProjekt2k19.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            if (disposing) db.Dispose();
 
             base.Dispose(disposing);
         }

@@ -1,13 +1,11 @@
-﻿using System.Linq;
-using System.Web.Http;
-using SlutProjekt2k19.Models;
+﻿using System.Web.Http;
 
 namespace SlutProjekt2k19.Controllers
 {
     // Ändra grundsökvägen så att alla metoder i kontrollern
     // hamnar under /api/todos
     [RoutePrefix("api/posts")]
-    public class TodoApiController : ApiController
+    public class PostApiController : ApiController
     {
         /*
 
