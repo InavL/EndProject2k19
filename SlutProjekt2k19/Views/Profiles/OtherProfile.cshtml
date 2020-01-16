@@ -2,33 +2,32 @@
 
 @{
     ViewBag.Title = Html.DisplayFor(model => model.Name);
-
+    var guid = @Model.UserCredentials;
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-sm-12">
             <div class="card backcolor" style="width: 18rem;">
-                @if (@Model.Image != null)
-                {
+                @if (@Model.Image != null) {
                     <img src="@Url.Content(@Model.Image)" alt="Profile_Image" class="card-img-top">
                 }
-                else
-                {
+                else {
                     <img src="~/Images/Test.jpg" alt="Profile_Image" class="card-img-top">
                 }
                 <div class="card-body textcolor2">
                     <h5 class="card-title">@Html.DisplayFor(model => model.Name)</h5>
                     <p class="card-text">@Html.DisplayNameFor(model => model.Age): @Html.DisplayFor(model => model.Age)</p>
                     <p class="card-text">@Html.DisplayNameFor(model => model.Gender): @Html.DisplayFor(model => model.Gender)</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    
+                    @Html.ActionLink("Add Friend", "SendFriendRequestFromProfile", "FriendRequest", new { guid }, new { @class = "btn btn-primary" })
                 </div>
             </div>
         </div>
         <div class="col-md-8 col-sm-12">
             <div class="jumbotron shadow p-3 mb-5 bg-white rounded backcolor">
                 <h3>Bio</h3>
-                <hr/>
+                <hr />
                 <p>@Html.DisplayFor(model => model.Bio)</p>
             </div>
         </div>

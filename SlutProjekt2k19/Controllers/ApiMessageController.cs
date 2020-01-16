@@ -1,47 +1,60 @@
 ﻿using SlutProjekt2k19.Models;
-using System.Collections.Generic;
+using System.Web.Http;
+using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Security.Claims;
-using System.Web.Http;
-using System.Data.Entity;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Message = SlutProjekt2k19.Models.Message;
 
 namespace SlutProjekt2k19.Controllers
 {
-    //[RoutePrefix("api/apimessage")]
-    public class ApiMessageController : ApiController
+    [RoutePrefix("api/messages")]
+    public class MessageApiController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
-        //[Route("list")]
-        [HttpGet]
-        public IEnumerable<PostMessageDto> List()
+        public struct MessageRequestBody
         {
-            var claimsIdentity = (ClaimsIdentity) User.Identity;
+            public string message;
+            public string currentUserId;
+            public string author;
+            public string to;
+        }
+
+        [Route("send")]
+        public async Task<IHttpActionResult> PostMessage()
+        {
+            var body = await Request.Content.ReadAsStringAsync();
+            var requestMessageBody = JsonConvert.DeserializeObject<MessageRequestBody>(body);
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
-            return db.Posts
-                .Include(m => m.User)
-                .OrderBy(m => m.Timestamp)
-                .ToList()
-                .Select(m => new PostMessageDto(m));
-        }
+            var db = new ApplicationDbContext();
+            var list = db.Profiles.ToList();
+            var profile = new Profile();
 
-        //[Route("send")]
-        [HttpPost]
-        public string Send([FromBody] PostMessageDto messageDto)
-        {
-            try
+            foreach (var p in list.Where(p => p.Id.Equals(userId)))
             {
-                var message = new PostMessage(messageDto);
-                db.Posts.Add(message);
-                db.SaveChanges();
-                return "Ok";
+                profile = p;
             }
-            catch
+
+            var ctx = new MessageDbContext();
+            var newMessage = new Message
             {
-                return "Inte ok";
-            }
+                Id = Guid.NewGuid().ToString(),
+                MessageSent = requestMessageBody.message,
+                From = requestMessageBody.currentUserId,
+                Author = requestMessageBody.author,
+                To = requestMessageBody.to,
+                MessagePic = profile.Image
+            };
+
+            ctx.Messages.Add(newMessage);
+            ctx.SaveChanges();
+
+            return Json(newMessage);
         }
     }
 }

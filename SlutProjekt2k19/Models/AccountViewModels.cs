@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SlutProjekt2k19.Models
@@ -56,20 +57,10 @@ namespace SlutProjekt2k19.Models
 
     public class RegisterViewModel
     {
-        public static int Max = 0;
+        public static string Max = "";
 
         public RegisterViewModel()
         {
-            var db = new ApplicationDbContext();
-            var profiles = db.Profiles;
-
-            foreach (var prof in profiles)
-            {
-                if (prof.UserCredentials > Max)
-                {
-                    Max = prof.UserCredentials;
-                }
-            }
         }
 
         [Required]
@@ -119,7 +110,7 @@ namespace SlutProjekt2k19.Models
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "UserCredentials")]
-        public int UserCredentials { get; set; } = Max;
+        public string UserCredentials { get; set; } = Guid.NewGuid().ToString();
     }
 
     public class ResetPasswordViewModel
@@ -137,7 +128,7 @@ namespace SlutProjekt2k19.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage =
+        [Compare("Password", ErrorMessage =
             "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 

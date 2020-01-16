@@ -24,7 +24,7 @@ namespace SlutProjekt2k19.Models
     {
         public DbSet<Profile> Profiles { get; set; }
 
-        public DbSet<PostMessage> Posts { get; set; }
+        public DbSet<Message> Posts { get; set; }
 
         public DbSet<FriendRequest> FriendRequests { get; set; }
 

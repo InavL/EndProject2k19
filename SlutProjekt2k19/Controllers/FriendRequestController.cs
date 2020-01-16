@@ -10,7 +10,7 @@ using SlutProjekt2k19.Models;
 
 namespace SlutProjekt2k19.Controllers
 {
-    public class FriendRequestsController : Controller
+    public class FriendRequestController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -39,7 +39,7 @@ namespace SlutProjekt2k19.Controllers
                 var profileList = db.Profiles.ToList();
                 var userString = userId;
                 var pendingFriends = new List<string>();
-                var cred = 0;
+                var cred = "";
                 var friendProfiles = new List<Profile>();
 
                 foreach (var item in profileList)
@@ -64,33 +64,58 @@ namespace SlutProjekt2k19.Controllers
             }
         }
 
-        public ActionResult SendFriendRequest(string id)
+        public ActionResult SendFriendRequest(string guid)
         {
             var claimsIdentity = (ClaimsIdentity) User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
-            Console.WriteLine(id);
-            db.FriendRequests.ToList();
-            var profilelist = db.Profiles.ToList();
+            var profileList = db.Profiles.ToList();
             List<Profile> list2;
             list2 = new List<Profile>();
-            var userString = userId;
             ViewBag.MyString = "";
 
-            foreach (var item in profilelist)
-                if (Convert.ToString(item.UserCredentials) == id && item.Id != userId)
+            foreach (var item in profileList)
+            {
+                var id = item.UserCredentials;
+                if (id.Equals(guid) && item.Id != userId)
                 {
-                    var friendrequests = new FriendRequest
+                    var friendRequests = new FriendRequest
                     {
-                        From = userString, To = Convert.ToString(item.UserCredentials)
+                        From = userId, To = item.UserCredentials
                     };
-                    db.FriendRequests.Add(friendrequests);
+                    db.FriendRequests.Add(friendRequests);
                     db.SaveChanges();
                     list2.Add(item);
                     ViewBag.MyString = "A new friend request has been sent";
                 }
+            }
+            return RedirectToAction("Feed", "Profiles");
+        }
 
+        public ActionResult SendFriendRequestFromProfile(string guid) {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
+
+            var profileList = db.Profiles.ToList();
+            List<Profile> list2;
+            list2 = new List<Profile>();
+            ViewBag.MyString = "";
+
+            foreach (var item in profileList) {
+                var id = item.UserCredentials;
+                if (id.Equals(guid) && item.Id != userId) {
+                    var friendRequests = new FriendRequest {
+                        From = userId,
+                        To = item.UserCredentials
+                    };
+                    db.FriendRequests.Add(friendRequests);
+                    db.SaveChanges();
+                    list2.Add(item);
+                    ViewBag.MyString = "A new friend request has been sent";
+                }
+            }
             return RedirectToAction("Feed", "Profiles");
         }
 
@@ -106,7 +131,7 @@ namespace SlutProjekt2k19.Controllers
                 var profilelist = db.Profiles.ToList();
                 var userString = userId;
                 var pendingFriends = new List<string>();
-                var cred = 0;
+                var cred = "";
                 var friendProfiles = new List<Profile>();
 
                 foreach (var item in profilelist)
@@ -198,7 +223,7 @@ namespace SlutProjekt2k19.Controllers
 
             var profilelist = db.Profiles.ToList();
             var userString = userId;
-            var to = 0;
+            var to = "";
 
             foreach (var item in profilelist)
                 if (userString == item.Id)
@@ -250,9 +275,7 @@ namespace SlutProjekt2k19.Controllers
                             db.Contactlists.Add(contact2);
                             db.SaveChanges();
 
-                            foreach (var friend in profilelist)
-                                if (friend.Id == id)
-                                    friendProfiles.Add(friend);
+                            friendProfiles.AddRange(profilelist.Where(friend => friend.Id == id));
                         }
                 }
 

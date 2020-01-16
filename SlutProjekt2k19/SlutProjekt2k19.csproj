@@ -200,7 +200,7 @@
     <Compile Include="Controllers\ApiMessageController.cs" />
     <Compile Include="Controllers\ContactlistsController.cs" />
     <Compile Include="Controllers\ControllProfileController.cs" />
-    <Compile Include="Controllers\FriendRequestsController.cs" />
+    <Compile Include="Controllers\FriendRequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -216,7 +216,7 @@
     <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PostMessage.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -401,12 +401,12 @@
     <Content Include="Views\Profiles\Edit.cshtml" />
     <Content Include="Views\Profiles\Index.cshtml" />
     <Content Include="Views\Profiles\Feed.cshtml" />
-    <Content Include="Views\FriendRequests\Index.cshtml" />
-    <Content Include="Views\FriendRequests\PendingRequests.cshtml" />
     <Content Include="Views\Contactlists\Index.cshtml" />
     <Content Include="Views\Images\AddImages.cshtml" />
     <Content Include="Views\Home\_PicturePartial.cshtml" />
     <Content Include="Views\Profiles\OtherProfile.cshtml" />
+    <Content Include="Views\FriendRequest\Index.cshtml" />
+    <Content Include="Views\FriendRequest\PendingRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,6 +10,6 @@ namespace SlutProjekt2k19.Models
         public string Gender { get; set; }
         public string Bio { get; set; }
         public string Image { get; set; }
-        public int UserCredentials { get; set; }
+        public string UserCredentials { get; set; }
     }
 }

@@ -6,7 +6,6 @@
     <title>@ViewBag.Title - Flint & Steel</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr");
-
 </head>
 <body>
 
@@ -26,7 +25,7 @@
                 {
                     <li class="nav-link">@Html.ActionLink("Profile", "Index", "Profiles")</li>
                     <li class="nav-link">@Html.ActionLink("Feed", "Feed", "Profiles")</li>
-                    <li class="nav-link">@Html.ActionLink("Friend Invites", "PendingRequests", "FriendRequests")</li>
+                    <li class="nav-link">@Html.ActionLink("Friend Invites", "PendingRequests", "FriendRequest")</li>
                     <li class="nav-link">@Html.ActionLink("Contactlist", "Index", "Contactlists")</li>
                 }
             </ul>
@@ -34,7 +33,7 @@
                 @if (Request.IsAuthenticated)
                 {
                     <li class="nav-link">
-                        <a href="../FriendRequests/PendingRequests">Friend Requests: @Html.Action("CountPendingRequests", "FriendRequests")</a>
+                        <a href="../FriendRequest/PendingRequests">Friend Requests: @Html.Action("CountPendingRequests", "FriendRequest")</a>
                     </li>
                 }
                 <li>@Html.Partial("_LoginPartial")</li>
