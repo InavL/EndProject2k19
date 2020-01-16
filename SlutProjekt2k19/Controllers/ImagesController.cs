@@ -46,7 +46,7 @@ namespace SlutProjekt2k19.Controllers
                         fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
                         file.SaveAs(fileName);
                         profile.Image = imgPath;
-                        System.Console.WriteLine(fileName + imgPath);
+                        Console.WriteLine(fileName + imgPath);
                         db.Entry(profile).State = EntityState.Modified;
                         db.SaveChanges();
                     }
@@ -71,7 +71,6 @@ namespace SlutProjekt2k19.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-
 
             return RedirectToAction("Index", "Profiles");
         }

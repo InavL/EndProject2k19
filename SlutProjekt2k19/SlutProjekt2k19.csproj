@@ -417,7 +417,6 @@
     <Content Include="Views\FriendRequests\Details.cshtml" />
     <Content Include="Views\FriendRequests\Edit.cshtml" />
     <Content Include="Views\FriendRequests\Index.cshtml" />
-    <Content Include="Views\FriendRequests\SendFriendRequest.cshtml" />
     <Content Include="Views\FriendRequests\PendingRequests.cshtml" />
     <Content Include="Views\Contactlists\Create.cshtml" />
     <Content Include="Views\Contactlists\Delete.cshtml" />

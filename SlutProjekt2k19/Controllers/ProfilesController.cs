@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using SlutProjekt2k19.Models;
 
 namespace SlutProjekt2k19.Controllers
@@ -25,7 +21,7 @@ namespace SlutProjekt2k19.Controllers
         {
             try
             {
-                var claimsIdentity = (ClaimsIdentity) this.User.Identity;
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
@@ -88,11 +84,11 @@ namespace SlutProjekt2k19.Controllers
         {
             if (ModelState.IsValid)
             {
-                var claimsIdentity = (ClaimsIdentity) this.User.Identity;
+                var claimsIdentity = (ClaimsIdentity) User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
-                profile.Id = userId.ToString();
+                profile.Id = userId;
                 db.Profiles.Add(profile);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -11,12 +11,14 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                @if (@Model.Image != null) {
+        <div class="col-md-4 col-sm-12">
+            <div class="card backcolor" style="width: 18rem;">
+                @if (@Model.Image != null)
+                {
                     <img src="@Url.Content(@Model.Image)" alt="Profile_Image" class="card-img-top">
                 }
-                else {
+                else
+                {
                     <img src="~/Images/Test.jpg" alt="Profile_Image" class="card-img-top">
                 }
                 <div class="card-body textcolor2">
@@ -26,26 +28,21 @@
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
-            <hr/>
-            @if (@Model.Id != null) {
-                <p>
-                    @Html.ActionLink("Edit", "Edit", new {
-                        id = profile
-                    }) |
-                    @Html.ActionLink("Feed", "Feed", "Profiles") |
-                    @Html.ActionLink("Friend Invites", "PendingRequests", "FriendRequests") |
-                    @Html.ActionLink("Contactlist", "Index", "Contactlists")
-                </p>
-                <p>
+            @if (@Model.Id != null)
+            {
+                <p style="padding-top: 1rem;">
+                    @Html.ActionLink("Edit", "Edit", new { id = profile }) |
                     @Html.ActionLink("Add/Change Profile Picture", "AddImageView", "Images")
                 </p>
             }
 
         </div>
-        <div class="col-md-8">
-            <h3>Bio</h3>
-            <p>@Html.DisplayFor(model => model.Bio)</p>
-
+        <div class="col-md-8 col-sm-12">
+            <div class="jumbotron shadow p-3 mb-5 bg-white rounded backcolor">
+                <h3>Bio</h3>
+                <hr/>
+                <p>@Html.DisplayFor(model => model.Bio)</p>
+            </div>
         </div>
     </div>
 </div>

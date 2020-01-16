@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using SlutProjekt2k19.Models;
 
@@ -15,28 +16,16 @@ namespace SlutProjekt2k19.Controllers
 
         //GET: FriendRequests
         [HttpGet]
-        public ActionResult Index(string name)
+        public async Task<ActionResult> Index(string searchString)
         {
-            try
-            {
-                var profilelist = db.Profiles.ToList();
-                var list2 = new List<Profile>();
+            var profiles = from p in db.Profiles
+                select p;
 
-                foreach (var item in profilelist)
-                {
-                    var Name = item.Name;
-                    if (Name == name)
-                    {
-                        list2.Add(item);
-                    }
-                }
+            if (!String.IsNullOrEmpty(searchString)) {
+                profiles = profiles.Where(s => s.Name.Contains(searchString));
+            }
 
-                return View(list2);
-            }
-            catch
-            {
-                return HttpNotFound();
-            }
+            return View(await profiles.ToListAsync());
         }
 
         // GET: FriendRequests/Details/5
@@ -44,18 +33,18 @@ namespace SlutProjekt2k19.Controllers
         {
             try
             {
-                var claimsIdentity = (ClaimsIdentity) this.User.Identity;
-                var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 var userId = claim.Value;
 
-                var friendlist = db.FriendRequests.ToList();
-                var profilelist = db.Profiles.ToList();
-                var userString = userId.ToString();
+                var friendList = db.FriendRequests.ToList();
+                var profileList = db.Profiles.ToList();
+                var userString = userId;
                 var pendingFriends = new List<string>();
                 var cred = 0;
                 var friendProfiles = new List<Profile>();
 
-                foreach (var item in profilelist)
+                foreach (var item in profileList)
                 {
                     if (userString == item.Id)
                     {
@@ -63,7 +52,7 @@ namespace SlutProjekt2k19.Controllers
                     }
                 }
 
-                foreach (var item in friendlist)
+                foreach (var item in friendList)
                 {
                     if (cred.ToString() == item.To)
                     {
@@ -71,7 +60,7 @@ namespace SlutProjekt2k19.Controllers
                     }
                 }
 
-                foreach (var item in profilelist)
+                foreach (var item in profileList)
                 {
                     foreach (var to in pendingFriends)
                     {
