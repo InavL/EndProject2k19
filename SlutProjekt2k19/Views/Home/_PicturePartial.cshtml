@@ -1,65 +1,19 @@
-﻿@model IEnumerable<SlutProjekt2k19.Models.Profile>
-@{
-    var imgL = new List<string>();
+﻿@model List<SlutProjekt2k19.Models.Profile>
 
-    if (ViewBag.Files != null)
-    {
-        imgL.AddRange((List<string>) ViewBag.Files);
-    }
+@{
+
+   
 }
 @if (Request.IsAuthenticated)
 {
     <h4 style="padding-bottom: 1rem;">Go and find these singles in your feed:</h4>
     <div class="container">
         <div class="row">
-            @if (imgL.Count != 0)
+            @foreach (SlutProjekt2k19.Models.Profile profil in Model.ToList())
             {
                 <div class="col-md-4 col-sm-4">
-                    <a href="">
-                        <img alt="AltText" src="@Url.Content(imgL[0])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                    </a>
-                </div>
-            }
-            @if (imgL.Count > 1)
-            {
-                <div class="col-md-4 col-sm-4">
-                    <a href="">
-                        <img alt="AltText" src="@Url.Content(imgL[1])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                    </a>
-                </div>
-            }
-            @if (imgL.Count > 2)
-            {
-                <div class="col-md-4 col-sm-4">
-                    <a href="">
-                        <img alt="AltText" src="@Url.Content(imgL[2])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                    </a>
-                </div>
-            }
-        </div>
-        <hr/>
-        <div class="row">
-            @if (imgL.Count > 3)
-            {
-                <div class="col-md-4 col-sm-4">
-                    <a href="">
-                        <img alt="AltText" src="@Url.Content(imgL[3])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                    </a>
-                </div>
-            }
-            @if (imgL.Count > 4)
-            {
-                <div class="col-md-4 col-sm-4">
-                    <a href="">
-                        <img alt="AltText" src="@Url.Content(imgL[4])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                    </a>
-                </div>
-            }
-            @if (imgL.Count > 5)
-            {
-                <div class="col-md-4 col-sm-4">
-                    <a href="">
-                        <img alt="AltText" src="@Url.Content(imgL[5])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
+                    <a href="@Url.Action("OtherProfile", "Profiles", new { id = profil.Id } )">
+                        <img alt="AltText" src="@Url.Content(profil.Image)" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
                     </a>
                 </div>
             }
@@ -72,60 +26,18 @@ else
         <div class="container">
             <h2>People you can meet on F&S:</h2>
             <div class="row">
-                @if (imgL.Count != 0)
+                @foreach (SlutProjekt2k19.Models.Profile profil in Model.ToList())
                 {
-                    <div class="col-md-6 col-sm-12">
-                        <a href="">
-                            <img alt="AltText" src="@Url.Content(imgL[0])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                        </a>
-                    </div>
-                }
-                @if (imgL.Count > 1)
-                {
-                    <div class="col-md-6 col-sm-12">
-                        <a href="">
-                            <img alt="AltText" src="@Url.Content(imgL[1])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
+                    <div class="col-md-4 col-sm-4">
+                        <a href="@Url.Action("OtherProfile", "Profiles", new { id = profil.Id } )">
+                            <img alt="AltText" src="@Url.Content(profil.Image)" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
                         </a>
                     </div>
                 }
             </div>
             <hr/>
             <div class="row">
-                @if (imgL.Count > 2)
-                {
-                    <div class="col-md-6 col-sm-12">
-                        <a href="">
-                            <img alt="AltText" src="@Url.Content(imgL[2])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                        </a>
-                    </div>
-                }
-                @if (imgL.Count > 3)
-                {
-                    <div class="col-md-6 col-sm-12">
-                        <a href="">
-                            <img alt="AltText" src="@Url.Content(imgL[3])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                        </a>
-                    </div>
-                }
-            </div>
-            <hr/>
-            <div class="row">
-                @if (imgL.Count > 4)
-                {
-                    <div class="col-md-6 col-sm-12">
-                        <a href="">
-                            <img alt="AltText" src="@Url.Content(imgL[4])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                        </a>
-                    </div>
-                }
-                @if (imgL.Count > 5)
-                {
-                    <div class="col-md-6 col-sm-12">
-                        <a href="">
-                            <img alt="AltText" src="@Url.Content(imgL[5])" style="height: 200px; width: 200px; border-radius: 5%;" class="img-fluid">
-                        </a>
-                    </div>
-                }
+                
             </div>
         </div>
     </div>

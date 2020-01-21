@@ -36,7 +36,7 @@ namespace SlutProjekt2k19.Controllers
                 return HttpNotFound();
             }
         }
-
+        [Authorize]
         public ActionResult OtherProfile(string id)
         {
             try
@@ -62,6 +62,7 @@ namespace SlutProjekt2k19.Controllers
         }
 
         // GET: Profiles/Details/5
+        
         public ActionResult Details(string id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

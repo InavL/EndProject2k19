@@ -10,7 +10,7 @@
             <p class="lead">We'll help you start a fire.</p>
         </div>
     </div>
-    @Html.Partial("_PicturePartial")
+    @Html.Partial("_PicturePartial", (List<SlutProjekt2k19.Models.Profile>) ViewBag.Files)
 }
 else
 {
@@ -151,7 +151,7 @@ else
                 }
 
             </div>
-            @Html.Partial("_PicturePartial")
+            @Html.Partial("_PicturePartial", (List<SlutProjekt2k19.Models.Profile>) ViewBag.Files)
         </div>
     </div>
 }

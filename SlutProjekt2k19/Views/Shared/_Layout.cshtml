@@ -33,7 +33,7 @@
                 @if (Request.IsAuthenticated)
                 {
                     <li class="nav-link">
-                        <a href="../FriendRequest/PendingRequests">Friend Requests: @Html.Action("CountPendingRequests", "FriendRequest")</a>
+                        <a href="@Url.Action("PendingRequests", "FriendRequest")">Friend Requests: @Html.Action("CountPendingRequests", "FriendRequest")</a>
                     </li>
                 }
                 <li>@Html.Partial("_LoginPartial")</li>
